@@ -20,7 +20,7 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("articles/{pageno:int=1}")]
-        public IActionResult ArticleList(int pageno)
+        public IActionResult Articles(int pageno)
         {
             pageno = pageno <= 0 ? 1 : (pageno > 10 ? 10 : pageno);
             ViewBag.PageNumber = pageno;

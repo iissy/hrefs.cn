@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ASY.Hrefs.Model.Models.Article>
+@{
+    int PageNumber = (int)ViewBag.PageNumber;
+    ViewData["Title"] = Html.Raw("文章列表");
+    ViewData["Description"] = Html.Raw("Java，部署，Asp.Net Core，教程，Python，微服务，Vue组建，Golang，企业架构设计，idea，方案");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main" style="background-color:#ffffff;margin-top:10px;">
+    @foreach (Article article in Model)
+    {
+        <div style="overflow: hidden;padding: 0;margin-left:3%;margin-right:3%;border-bottom: 1px solid #eeeeee;">
+            <div style="float:left;display: table;margin: 20px 30px 20px 0;">
+                <img class="lazy" src="@(article.Icon)" data-original="@(article.Icon)" width="180" height="110">
+            </div>
+            <div style="overflow: visible;margin: 20px 0 0 0;display: table;">
+                <div style="overflow:visible;">
+                    <a href="/article/@article.Id" style="font-size:18px;font-weight:bold;letter-spacing: 1px;">@Html.Raw(article.Title)</a>
+                </div>
+                <div style="margin-top:10px;margin-bottom:10px;">
+                    <div style="max-height:44px;color:#999;overflow:hidden;font-size:14px;line-height:22px;letter-spacing: 1px;">
+                        @Html.Raw(article.Brief)
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

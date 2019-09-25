@@ -1,0 +1,23 @@
+﻿@model Article
+@{
+    ViewBag.Title = Html.Raw(Model.Title);
+    ViewData["Description"] = Html.Raw(Model.Brief);
+}
+
+<div id="mbmain" style="margin-top:10px;">
+    <div id="detail">
+        <div class="title">
+            <h3>@Html.Raw(Model.Title)</h3>
+        </div>
+        <div class="body">
+            @Html.Raw(Model.Body)
+        </div>
+        <div class="origin">
+            Posted by 何敏 on @Model.CreateTime.ToLocalTime().ToString("yyyy/MM/dd HH:mm:ss")
+        </div>
+    </div>
+</div>
+
+<script>
+    var artid = "@Model.Id";
+</script>

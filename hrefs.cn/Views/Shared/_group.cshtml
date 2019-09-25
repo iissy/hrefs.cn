@@ -1,0 +1,45 @@
+﻿@model IEnumerable<KeyValuePair<string, IGrouping<string, LinkBase>>>
+@{
+    var active = Model.Take(1).FirstOrDefault();
+    var rest = Model.Skip(1);
+}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="(@active.Key)-tab" data-toggle="tab" href="#@active.Key" role="tab" aria-controls="@active.Key" aria-selected="true">@active.Key</a>
+        </li>
+        @foreach (var group in rest)
+{
+        <li class="nav-item">
+            <a class="nav-link" id="(@group.Key)-tab" data-toggle="tab" href="#@group.Key" role="tab" aria-controls="@group.Key" aria-selected="true">@group.Key</a>
+        </li>
+}
+    </ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="@active.Key" role="tabpanel" aria-labelledby="@(active.Key)-tab">
+        <div class="container">
+            <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+            <div class="row">
+                @foreach (var item in active.Value)
+                {<div class="site-item col-2" style="padding-left:10px;">
+                        <a style="width:100%;" href="/link/@item.Id" target="_blank">@Html.Raw(item.Title)</a>
+                    </div>}
+            </div>
+        </div>
+    </div>
+
+    @foreach (var group in rest)
+{
+<div class="tab-pane fade" id="@group.Key" role="tabpanel" aria-labelledby="@(group.Key)-tab">
+    <div class="container">
+        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+        <div class="row">
+            @foreach (var item in group.Value)
+            {<div class="site-item col-2" style="padding-left:20px;">
+                    <a style="width:100%;margin-right:5px;" href="/link/@item.Id" target="_blank">@Html.Raw(item.Title)</a>
+                </div>}
+        </div>
+    </div>
+</div>
+}
+</div>

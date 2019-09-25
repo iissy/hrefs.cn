@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Article>
+<div id="article" style="margin-top:0;">
+    <div class="article-bd">
+        @foreach (var item in Model)
+        {
+            <div class="article-item"><a href="/article/@item.Id">@Html.Raw(item.Title)</a></div>
+        }
+    </div>
+</div>

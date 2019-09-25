@@ -1,8 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = null;
+    var common = (IEnumerable<Link>)ViewBag.common;
+    var info = (IEnumerable<Link>)ViewBag.info;
+    var course = (IEnumerable<Link>)ViewBag.course;
+    var frontend = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.frontend;
+    var backend = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.backend;
+    var hot = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.hot;
+    var other = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.other;
+
+    int VisitedCount = (int)ViewBag.VisitedCount;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="keywords" content="上网导航，hrefs.cn，科技网址，网址导航，程序员自学教程网站，www.hrefs.cn，前端开发，后端开发，数据库，程序员网址导航，程序员常去的网站">
+    <meta name="description" content="程序员日常使用的网站，Java Spring网站，网址导航，Asp.Net Core框架，JSON在线解释，Python网址，微服务大全，NodeJS框架，科技网站，Golang网址，程序员学习网站，Vue组件网址">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/styles/site.css?201909251717" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>程序员网址导航 - 程序员常用的网址大全</title>
+</head>
+<body>
+    @await Html.PartialAsync("_header")
+    <div id="main">
+        <div style="float:left;width:330px;">
+            @await Component.InvokeAsync("Article", new { size = 10, skip = 0 })
+            @await Html.PartialAsync("_pay")
+            @await Html.PartialAsync("_aboutme", VisitedCount)
+        </div>
+        <div style="float:right;width:960px;">
+            @await Html.PartialAsync("_common", common)
+            @await Html.PartialAsync("_info", info)
+            @await Html.PartialAsync("_course", course)
+            <div id="other">@await Html.PartialAsync("_group", other)</div>
+            <div id="backend">@await Html.PartialAsync("_group", backend)</div>
+            <div id="frontend">@await Html.PartialAsync("_group", frontend)</div>
+            <div id="hot">@await Html.PartialAsync("_group", hot)</div>
+        </div>
+    </div>
+    <div id="footer">
+        @await Html.PartialAsync("_footer")
+    </div>
+</body>
+</html>

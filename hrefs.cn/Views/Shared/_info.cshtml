@@ -1,0 +1,5 @@
+﻿<div id="info" style="">
+    <ul class="site-hd">
+        @foreach (LinkBase item in Model){<li class="site-hd-item non-item"><a href="/link/@item.Id" target="_blank">@Html.Raw(item.Title)</a></li>}
+    </ul>
+</div>

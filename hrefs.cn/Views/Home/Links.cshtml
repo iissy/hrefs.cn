@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ASY.Hrefs.Model.Models.Link>
+@{
+    ViewData["Title"] = Html.Raw(ViewBag.Cat + " - 网址大全");
+    ViewData["Description"] = Html.Raw(ViewBag.Cat + "程序员常用网址");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main" style="width:1310px;">
+@foreach (Link link in Model)
+{
+    <div class="links-line">
+        <div style="padding-top:5px;padding-bottom:5px;border-bottom: 1px solid #dee3eb;"><a target="_blank" href="/link/@link.Id" style="margin:10px 0 0 10px;font-size:18px;font-weight:bold;letter-spacing: 2px;">@Html.Raw(link.Title)</a></div>
+        <div style="background-color:#ffffff;height:105px;padding-top:5px;background-color: #f9f9f9;">
+            <div style="color:#333;overflow:hidden;font-size:14px;letter-spacing: 1px;line-height:25px;padding-left:10px;" title="@Html.Raw(link.Brief)">
+                @Html.Raw(link.Brief)
+            </div>
+        </div>
+    </div>
+}
+</div>
