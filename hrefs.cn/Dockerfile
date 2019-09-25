@@ -10,5 +10,5 @@ WORKDIR /publish
 #设置Docker容器对外暴露80端口
 EXPOSE 80/tcp
 
-#使用dotnet www.hrefs.cn.dll来运行应用程序，www.hrefs.cn.dll是你网站的启动dll
+#使用dotnet hrefs.cn.dll来运行应用程序，hrefs.cn.dll是你网站的启动dll
 CMD ["dotnet", "hrefs.cn.dll"]

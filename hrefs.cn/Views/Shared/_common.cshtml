@@ -1,5 +1,5 @@
 ﻿<div id="common" style="margin-top:0;">
     <ul class="site-hd">
-        @foreach (LinkBase item in Model){<li class="site-hd-item non-item"><a href="/link/@item.Id" target="_blank"><img src="@item.Icon"> @Html.Raw(item.Title)</a></li>}
+        @foreach (Link item in Model){<li class="site-hd-item non-item"><a href="/link/@item.Id" target="_blank"><img src="@item.Icon"> @Html.Raw(item.Title)</a></li>}
     </ul>
 </div>

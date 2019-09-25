@@ -10,5 +10,5 @@ WORKDIR /publish
 #设置Docker容器对外暴露5001端口
 EXPOSE 5001/tcp
 
-#使用dotnet www.hrefs.cn.dll来运行应用程序，www.hrefs.cn.dll是你网站的启动dll
+#使用dotnet MicroServices来运行应用程序，MicroServices是你网站的启动dll
 CMD ["dotnet", "MicroServices.dll"]

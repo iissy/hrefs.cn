@@ -1,5 +1,5 @@
 ﻿<div id="course" style="text-align:center;">
     <ul style="position: relative;">
-        @foreach (LinkBase item in Model){<li class="site-course-item"><a href="/link/@item.Id" target="_blank">@Html.Raw(item.Title)</a></li>}
+        @foreach (Link item in Model){<li class="site-course-item"><a href="/link/@item.Id" target="_blank">@Html.Raw(item.Title)</a></li>}
     </ul>
 </div>

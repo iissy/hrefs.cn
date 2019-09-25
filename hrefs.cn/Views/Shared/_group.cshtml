@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KeyValuePair<string, IGrouping<string, LinkBase>>>
+﻿@model IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>
 @{
     var active = Model.Take(1).FirstOrDefault();
     var rest = Model.Skip(1);
