@@ -9,6 +9,8 @@ namespace ASY.Hrefs.BLL.Dispatcher
     {
         public static MicroServices.Hrefs.HrefsClient Instance(string url)
         {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
             var channel = GrpcChannel.ForAddress(url);
             var client = new MicroServices.Hrefs.HrefsClient(channel);
             return client;

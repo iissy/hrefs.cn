@@ -34,7 +34,7 @@ namespace ASY.Hrefs.BLL.Service
 
         public IEnumerable<Article> ListArticleByPaging(int size, int skip, string fields = "*")
         {
-            var result = _client.ListArticleByPaging(new GlobalRequest { Size = size, Skip = size, Fields = fields });
+            var result = _client.ListArticleByPaging(new GlobalRequest { Size = size, Skip = skip, Fields = fields });
             var list = result.Items.Select(p => _mapper.Map<Article>(p));
             return list;
         }
