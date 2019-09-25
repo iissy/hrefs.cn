@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.23.1" />
   </ItemGroup>
 
