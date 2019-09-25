@@ -6,7 +6,11 @@ package Hrefs;
 
 service Hrefs {
 	rpc GetAllLink (Empty) returns (LinkListResponse);
+	rpc ListLinkByCat (GlobalRequest) returns (LinkListResponse);
+	rpc LinksVisitedCount (Empty) returns (GlobalResponse);
+
 	rpc ListArticleByPaging (GlobalRequest) returns (ArticleListResponse);
+	rpc GetArticle (GlobalRequest) returns (ArticleProto);
 }
 
 message Empty {
@@ -18,6 +22,11 @@ message GlobalRequest {
 	string Fields = 3;
 	int32 Size = 4;
 	int32 Skip = 5;
+	string Id = 6;
+}
+
+message GlobalResponse {
+	int32 Result = 1;
 }
 
 message ArticleProto {

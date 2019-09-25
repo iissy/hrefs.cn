@@ -13,8 +13,10 @@ namespace MicroServices
         private IArticleRepository _articleRepository;
         private ILinkRepository _linkRepository;
         private readonly ILogger<HrefsService> _logger;
-        public HrefsService(ILogger<HrefsService> logger)
+        public HrefsService(ILogger<HrefsService> logger, IArticleRepository articleRepository, ILinkRepository linkRepository)
         {
+            _articleRepository = articleRepository;
+            _linkRepository = linkRepository;
             _logger = logger;
         }
 
@@ -24,10 +26,28 @@ namespace MicroServices
             return Task.FromResult(new LinkListResponse());
         }
 
+        public override Task<LinkListResponse> ListLinkByCat(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _linkRepository.ListLinkByCat(request.Linktype);
+            return Task.FromResult(new LinkListResponse());
+        }
+
+        public override Task<GlobalResponse> LinksVisitedCount(Empty request, ServerCallContext context)
+        {
+            var result = _linkRepository.LinksVisitedCount();
+            return Task.FromResult(new GlobalResponse());
+        }
+
         public override Task<ArticleListResponse> ListArticleByPaging(GlobalRequest request, ServerCallContext context)
         {
-            var result = _articleRepository.ListByPaging(request.Size, request.Skip, request.Fields);
+            var result = _articleRepository.ListArticleByPaging(request.Size, request.Skip, request.Fields);
             return Task.FromResult(new ArticleListResponse());
+        }
+
+        public override Task<ArticleProto> GetArticle(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _articleRepository.GetArticle(request.Id, request.Fields);
+            return Task.FromResult(new ArticleProto());
         }
     }
 }

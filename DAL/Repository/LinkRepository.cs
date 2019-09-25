@@ -27,5 +27,29 @@ namespace ASY.Hrefs.DAL.Repository
 
             return list;
         }
+
+        public IEnumerable<Link> ListLinkByCat(string linktype)
+        {
+            IEnumerable<Link> list;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                string sql = string.Format($"SELECT title,id,visited,brief FROM link where linkType = @linkType ORDER BY visited desc");
+                list = conn.Query<Link>(sql, new { linktype });
+
+            }
+
+            return list;
+        }
+
+        public int LinksVisitedCount()
+        {
+            int total = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                total = conn.QuerySingle<int>("select sum(visited) from link");
+            }
+
+            return total;
+        }
     }
 }

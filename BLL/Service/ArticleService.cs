@@ -8,10 +8,22 @@ namespace ASY.Hrefs.BLL.Service
 {
     public class ArticleService: IArticleService
     {
+        private MicroServices.Hrefs.HrefsClient _client;
+        public ArticleService()
+        {
+            _client = HrefsDispatcher.Instance();
+        }
+
+        public Article GetArticle(string id, string fields = "*")
+        {
+            var result = _client.ListArticleByPaging(new GlobalRequest { Id = id, Fields = fields });
+
+            return new Article();
+        }
+
         public IEnumerable<Article> ListArticleByPaging(int size, int skip, string fields = "*")
         {
-            var client = HrefsDispatcher.Instance();
-            var result = client.ListArticleByPaging(new GlobalRequest { Size = size, Skip = size, Fields = fields });
+            var result = _client.ListArticleByPaging(new GlobalRequest { Size = size, Skip = size, Fields = fields });
 
             return new List<Article>();
         }
