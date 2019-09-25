@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ASY.Hrefs.BLL.IService;
 using ASY.Hrefs.BLL.Service;
+using ASY.Hrefs.Util.UIHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,7 @@ namespace hrefs.cn
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.Configure<RemoteService>(Configuration.GetSection("RemoteService"));
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<ILinkService, LinkService>();
         }

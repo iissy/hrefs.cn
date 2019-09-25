@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hrefs.cn", "hrefs.cn\hrefs.cn.csproj", "{8ED06CE2-81BE-4EE4-88F7-46AA290F71EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hrefs.cn", "hrefs.cn\hrefs.cn.csproj", "{8ED06CE2-81BE-4EE4-88F7-46AA290F71EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{815A81B7-2777-4540-A3BC-191B13156E98}"
 EndProject
@@ -13,23 +13,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{CBCA5A48
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Util", "Util", "{BB6C71BE-7D3A-481E-B520-FF4E83B7BE16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IService", "BLL\IService\IService.csproj", "{B21DBF04-6234-430C-8F7E-E36A4E37ECCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IService", "BLL\IService\IService.csproj", "{B21DBF04-6234-430C-8F7E-E36A4E37ECCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "BLL\Service\Service.csproj", "{76718E5B-A66D-452A-B7FB-FC94B3F92487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "BLL\Service\Service.csproj", "{76718E5B-A66D-452A-B7FB-FC94B3F92487}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepository", "DAL\IRepository\IRepository.csproj", "{D96F7457-1263-4A54-A121-6906A4999DAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRepository", "DAL\IRepository\IRepository.csproj", "{D96F7457-1263-4A54-A121-6906A4999DAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "DAL\Repository\Repository.csproj", "{45BC2530-65D6-4064-A28E-7116299A707F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "DAL\Repository\Repository.csproj", "{45BC2530-65D6-4064-A28E-7116299A707F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Model\Models\Models.csproj", "{4857BE92-3B74-4228-BE6D-BDC68D1BB261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Model\Models\Models.csproj", "{4857BE92-3B74-4228-BE6D-BDC68D1BB261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiscHelpers", "Util\MiscHelpers\MiscHelpers.csproj", "{DA6ED61A-B068-4F9E-8098-C9E2C6486159}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscHelpers", "Util\MiscHelpers\MiscHelpers.csproj", "{DA6ED61A-B068-4F9E-8098-C9E2C6486159}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{AB0D5B48-1FE5-436D-A3C7-B7C03CC085FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServices", "Service\MicroServices\MicroServices.csproj", "{B626DE81-4B87-4BDA-AF76-F049F6679791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServices", "Service\MicroServices\MicroServices.csproj", "{B626DE81-4B87-4BDA-AF76-F049F6679791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dispatcher", "BLL\Dispatcher\Dispatcher.csproj", "{1B359551-541E-4507-A6EC-0CE6325B5A83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dispatcher", "BLL\Dispatcher\Dispatcher.csproj", "{1B359551-541E-4507-A6EC-0CE6325B5A83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIHelpers", "Util\UIHelpers\UIHelpers.csproj", "{160C6B0F-9F60-4003-B38B-5575AE91B2ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{1B359551-541E-4507-A6EC-0CE6325B5A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B359551-541E-4507-A6EC-0CE6325B5A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B359551-541E-4507-A6EC-0CE6325B5A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{160C6B0F-9F60-4003-B38B-5575AE91B2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{160C6B0F-9F60-4003-B38B-5575AE91B2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{160C6B0F-9F60-4003-B38B-5575AE91B2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{160C6B0F-9F60-4003-B38B-5575AE91B2ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{DA6ED61A-B068-4F9E-8098-C9E2C6486159} = {BB6C71BE-7D3A-481E-B520-FF4E83B7BE16}
 		{B626DE81-4B87-4BDA-AF76-F049F6679791} = {AB0D5B48-1FE5-436D-A3C7-B7C03CC085FE}
 		{1B359551-541E-4507-A6EC-0CE6325B5A83} = {815A81B7-2777-4540-A3BC-191B13156E98}
+		{160C6B0F-9F60-4003-B38B-5575AE91B2ED} = {BB6C71BE-7D3A-481E-B520-FF4E83B7BE16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B523B388-E992-4438-9DB2-31756885E0C5}
