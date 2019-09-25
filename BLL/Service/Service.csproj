@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>ASY.Hrefs.BLL.Service</AssemblyName>
+    <RootNamespace>ASY.Hrefs.BLL.Service</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Model\Models\Models.csproj" />
+    <ProjectReference Include="..\Dispatcher\Dispatcher.csproj" />
+    <ProjectReference Include="..\IService\IService.csproj" />
+  </ItemGroup>
+
+</Project>
