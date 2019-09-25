@@ -5,8 +5,8 @@ using System.Text;
 
 namespace ASY.Hrefs.BLL.IService
 {
-    public interface IArticleService
+    public interface ILinkService
     {
-        IEnumerable<Article> ListArticleByPaging(int size, int skip, string fields = "*");
+        IEnumerable<Link> GetAllLink();
     }
 }

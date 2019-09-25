@@ -12,4 +12,9 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.23.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\DAL\IRepository\IRepository.csproj" />
+    <ProjectReference Include="..\..\DAL\Repository\Repository.csproj" />
+  </ItemGroup>
+
 </Project>

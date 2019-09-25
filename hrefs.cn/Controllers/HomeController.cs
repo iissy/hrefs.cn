@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using ASY.Hrefs.BLL.IService;
-using ASY.Hrefs.Model.Models;
+﻿using ASY.Hrefs.BLL.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -22,7 +16,7 @@ namespace hrefs.cn.Controllers
 
         public IActionResult Index()
         {
-            var result = _articleService.Save(new Article() { Id = "min" });
+            var result = _articleService.ListArticleByPaging(10, 0, "id,title");
             return View();
         }
     }

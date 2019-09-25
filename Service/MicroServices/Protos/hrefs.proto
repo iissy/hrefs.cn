@@ -5,13 +5,49 @@ option csharp_namespace = "MicroServices";
 package Hrefs;
 
 service Hrefs {
-  rpc SayHello (HelloRequest) returns (HelloReply);
+	rpc GetAllLink (Empty) returns (LinkListResponse);
+	rpc ListArticleByPaging (GlobalRequest) returns (ArticleListResponse);
 }
 
-message HelloRequest {
-  string name = 1;
+message Empty {
 }
 
-message HelloReply {
-  string message = 1;
+message GlobalRequest {
+	string Linktype = 1;
+	int32 Limit = 2;
+	string Fields = 3;
+	int32 Size = 4;
+	int32 Skip = 5;
+}
+
+message ArticleProto {
+	string Id = 1;
+	string Title = 2;
+	string Origin = 3;
+	string Visited = 4;
+	string Catalog = 5;
+	string Brief = 6;
+	string Icon = 7;
+	string Body = 8;
+	bool AddOrEdit = 9;
+	string CreateTime = 10;
+}
+
+message LinkProto {
+	string Id = 1;
+	string Title = 2;
+	string Icon = 3;
+	string LinkType = 4;
+	string Visited = 5;
+	string Brief = 6;
+	string Url = 7;
+	string CreateTime = 8;
+}
+
+message LinkListResponse {
+	repeated LinkProto Items = 1;
+}
+
+message ArticleListResponse {
+	repeated ArticleProto Items = 1;
 }

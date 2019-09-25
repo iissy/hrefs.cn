@@ -2,20 +2,18 @@
 using ASY.Hrefs.BLL.IService;
 using ASY.Hrefs.Model.Models;
 using MicroServices;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ASY.Hrefs.BLL.Service
 {
     public class ArticleService: IArticleService
     {
-        public int Save(Article article)
+        public IEnumerable<Article> ListArticleByPaging(int size, int skip, string fields = "*")
         {
             var client = HrefsDispatcher.Instance();
-            var reply = client.SayHello(new HelloRequest { Name = "GreeterClient" });
-            Console.WriteLine("Greeting: " + reply.Message);
-            return 1;
+            var result = client.ListArticleByPaging(new GlobalRequest { Size = size, Skip = size, Fields = fields });
+
+            return new List<Article>();
         }
     }
 }
