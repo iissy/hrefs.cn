@@ -28,6 +28,7 @@ namespace MicroServices
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.AddTransient<IArticleRepository, ArticleRepository>();
             services.AddTransient<ILinkRepository, LinkRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -30,6 +30,7 @@ namespace hrefs.cn
             services.Configure<RemoteService>(Configuration.GetSection("RemoteService"));
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<ILinkService, LinkService>();
+            services.AddTransient<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
