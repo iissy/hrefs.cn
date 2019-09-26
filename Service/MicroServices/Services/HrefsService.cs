@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ASY.Hrefs.DAL.IRepository;
 using ASY.Hrefs.Model.Models;
 using AutoMapper;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MicroServices
 {
@@ -14,12 +12,14 @@ namespace MicroServices
     {
         private IArticleRepository _articleRepository;
         private ILinkRepository _linkRepository;
+        private IAccountRepository _accountRepository;
         private readonly ILogger<HrefsService> _logger;
         private IMapper _mapper;
-        public HrefsService(ILogger<HrefsService> logger, IArticleRepository articleRepository, ILinkRepository linkRepository)
+        public HrefsService(ILogger<HrefsService> logger, IArticleRepository articleRepository, ILinkRepository linkRepository, IAccountRepository accountRepository)
         {
             _articleRepository = articleRepository;
             _linkRepository = linkRepository;
+            _accountRepository = accountRepository;
             _logger = logger;
 
             var configuration = new MapperConfiguration(cfg =>
@@ -134,10 +134,41 @@ namespace MicroServices
             return Task.FromResult(new GlobalResponse { Result = result });
         }
 
-        public override Task<GlobalResponse> DeleteArticle(GlobalRequest request, ServerCallContext context)
+        public override Task<GlobalResponse> DeleteAccount(GlobalRequest request, ServerCallContext context)
         {
-            var result = _articleRepository.DeleteArticle(request.Id);
+            var result = _accountRepository.DeleteAccount(request.Id);
             return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
+        public override Task<AccountPagerResponse> PagerAccountList(GlobalRequest request, ServerCallContext context)
+        {
+            var total = 0;
+            var result = _accountRepository.PagerAccountList(request.Size, request.Skip, null, out total, request.Fields);
+            var response = new AccountPagerResponse();
+            response.Total = total;
+            response.Items.AddRange(result.Select(p => _mapper.Map<AccountProto>(p)));
+            return Task.FromResult(response);
+        }
+
+        public override Task<GlobalResponse> SaveAccount(AccountProto request, ServerCallContext context)
+        {
+            var item = _mapper.Map<Account>(request);
+            var result = _accountRepository.SaveAccount(item);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
+        public override Task<AccountProto> GetAccount(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _accountRepository.GetAccount(request.Id, request.Fields);
+            var response = _mapper.Map<AccountProto>(result);
+            return Task.FromResult(response);
+        }
+
+        public override Task<AccountProto> GetLogin(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _accountRepository.GetLogin(request.Id, request.Password, request.Fields);
+            var response = _mapper.Map<AccountProto>(result);
+            return Task.FromResult(response);
         }
     }
 }
