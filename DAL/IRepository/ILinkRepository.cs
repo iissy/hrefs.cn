@@ -8,5 +8,7 @@ namespace ASY.Hrefs.DAL.IRepository
         IEnumerable<Link> GetAllLink();
         int LinksVisitedCount();
         IEnumerable<Link> ListLinkByCat(string linktype);
+        int UpdatedLinkVisited(string id);
+        Link GetLink(string id, string fields = "*");
     }
 }

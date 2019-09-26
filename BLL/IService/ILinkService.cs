@@ -10,5 +10,7 @@ namespace ASY.Hrefs.BLL.IService
         IEnumerable<Link> GetAllLink();
         int LinksVisitedCount();
         IEnumerable<Link> ListLinkByCat(string linktype);
+        int UpdatedLinkVisited(string id);
+        Link GetLink(string id, string fields = "*");
     }
 }

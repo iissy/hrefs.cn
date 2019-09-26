@@ -72,8 +72,21 @@ namespace MicroServices
         public override Task<ArticleProto> GetArticle(GlobalRequest request, ServerCallContext context)
         {
             var result = _articleRepository.GetArticle(request.Id, request.Fields);
-            var response = new ArticleProto();
-            return Task.FromResult(_mapper.Map<ArticleProto>(result));
+            var response = _mapper.Map<ArticleProto>(result);
+            return Task.FromResult(response);
+        }
+
+        public override Task<GlobalResponse> UpdatedLinkVisited(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _linkRepository.UpdatedLinkVisited(request.Id);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
+        public override Task<LinkProto> GetLink(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _linkRepository.GetLink(request.Id, request.Fields);
+            var response = _mapper.Map<LinkProto>(result);
+            return Task.FromResult(response);
         }
     }
 }

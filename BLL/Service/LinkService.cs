@@ -33,6 +33,12 @@ namespace ASY.Hrefs.BLL.Service
             return list;
         }
 
+        public Link GetLink(string id, string fields = "*")
+        {
+            var result = _client.GetLink(new GlobalRequest { Id = id, Fields = fields });
+            return _mapper.Map<Link>(result);
+        }
+
         public int LinksVisitedCount()
         {
             var reply = _client.LinksVisitedCount(new Empty());
@@ -44,6 +50,12 @@ namespace ASY.Hrefs.BLL.Service
             var result = _client.ListLinkByCat(new GlobalRequest { Linktype = linktype });
             var list = result.Items.Select(p => _mapper.Map<Link>(p));
             return list;
+        }
+
+        public int UpdatedLinkVisited(string id)
+        {
+            var reply = _client.UpdatedLinkVisited(new GlobalRequest { Id = id });
+            return reply.Result;
         }
     }
 }

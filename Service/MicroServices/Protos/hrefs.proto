@@ -8,6 +8,8 @@ service Hrefs {
 	rpc GetAllLink (Empty) returns (LinkListResponse);
 	rpc ListLinkByCat (GlobalRequest) returns (LinkListResponse);
 	rpc LinksVisitedCount (Empty) returns (GlobalResponse);
+	rpc UpdatedLinkVisited (GlobalRequest) returns (GlobalResponse);
+	rpc GetLink (GlobalRequest) returns (LinkProto);
 
 	rpc ListArticleByPaging (GlobalRequest) returns (ArticleListResponse);
 	rpc GetArticle (GlobalRequest) returns (ArticleProto);

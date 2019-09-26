@@ -51,5 +51,28 @@ namespace ASY.Hrefs.DAL.Repository
 
             return total;
         }
+
+        public int UpdatedLinkVisited(string id)
+        {
+            int result = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                result = conn.Execute("update link set visited = visited + 1 where Id = @Id", new { Id = id });
+            }
+
+            return result;
+        }
+
+        public Link GetLink(string id, string fields = "*")
+        {
+            var link = new Link();
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                string sql = string.Format("SELECT {0} FROM link WHERE Id = @Id", fields);
+                link = conn.QueryFirstOrDefault<Link>(sql, new { Id = id });
+            }
+
+            return link;
+        }
     }
 }

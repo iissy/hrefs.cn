@@ -84,5 +84,13 @@ namespace hrefs.cn.Controllers
             Article article = _articleService.GetArticle(id, "id,title,brief,body,createtime");
             return View(article);
         }
+
+        [Route("link/{id}")]
+        public void RedirectUrl(string id)
+        {
+            _linkService.UpdatedLinkVisited(id);
+            var url = _linkService.GetLink(id, "url").Url;
+            Response.Redirect(url);
+        }
     }
 }
