@@ -16,6 +16,17 @@ namespace ASY.Hrefs.DAL.Repository
             _connection = conn.Value.Mysql;
         }
 
+        public int DeleteArticle(string id)
+        {
+            int result = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                result = conn.Execute("delete from article where Id = @Id", new { Id = id });
+            }
+
+            return result;
+        }
+
         public Article GetArticle(string id, string fields = "*")
         {
             var article = new Article();
@@ -38,6 +49,63 @@ namespace ASY.Hrefs.DAL.Repository
             }
 
             return list;
+        }
+
+        public IEnumerable<Article> PagerArticleList(int size, int skip, string id, string title, string catalog, out int total, string fields = "*")
+        {
+            string sqlWhere = $"where 1=1";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                sqlWhere = $"where id = @id";
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(title))
+                {
+                    sqlWhere += $" and title like '%{title}%'";
+                }
+                if (!string.IsNullOrWhiteSpace(catalog))
+                {
+                    sqlWhere += " and catalog = @catalog";
+                }
+            }
+
+            IEnumerable<Article> list;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                string sql = string.Format($"SELECT {fields} FROM article {sqlWhere} ORDER BY createTime desc LIMIT @PageSize OFFSET @Offset");
+                list = conn.Query<Article>(sql, new { id, title, catalog, PageSize = size, Offset = skip });
+
+                total = conn.QueryFirstOrDefault<int>($"select count(*) FROM article {sqlWhere}", new { id, title, catalog });
+            }
+
+            return list;
+        }
+
+        public int SaveArticle(Article article)
+        {
+            int result = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                object exists = conn.ExecuteScalar("select id from article where Id = @Id", new { Id = article.Id });
+                if (exists == null && article.AddOrEdit)
+                {
+                    result = conn.Execute("INSERT INTO article(id,origin,catalog,icon,title,brief,body)" +
+                    "values(@Id,@Origin,@Catalog,@Icon,@Title,@Brief,@Body)", article);
+                }
+                else if (exists != null && !article.AddOrEdit)
+                {
+                    result = conn.Execute("update article set " +
+                        "origin=@Origin," +
+                        "catalog=@Catalog," +
+                        "icon=@Icon," +
+                        "title=@Title," +
+                        "brief=@Brief," +
+                        "body=@Body where Id=@Id", article);
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -116,5 +116,28 @@ namespace MicroServices
             var result = _linkRepository.DeleteLink(request.Id);
             return Task.FromResult(new GlobalResponse { Result = result });
         }
+
+        public override Task<ArticlePagerResponse> PagerArticleList(GlobalRequest request, ServerCallContext context)
+        {
+            var total = 0;
+            var result = _articleRepository.PagerArticleList(request.Size, request.Skip, request.Id, request.Title, null, out total, request.Fields);
+            var response = new ArticlePagerResponse();
+            response.Total = total;
+            response.Items.AddRange(result.Select(p => _mapper.Map<ArticleProto>(p)));
+            return Task.FromResult(response);
+        }
+
+        public override Task<GlobalResponse> SaveArticle(ArticleProto request, ServerCallContext context)
+        {
+            var item = _mapper.Map<Article>(request);
+            var result = _articleRepository.SaveArticle(item);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
+        public override Task<GlobalResponse> DeleteArticle(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _articleRepository.DeleteArticle(request.Id);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
     }
 }

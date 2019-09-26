@@ -31,6 +31,12 @@ namespace ASY.Hrefs.BLL.Service
             _client = HrefsDispatcher.Instance(remote.Value.Url);
         }
 
+        public int DeleteArticle(string id)
+        {
+            var reply = _client.DeleteArticle(new GlobalRequest { Id = id });
+            return reply.Result;
+        }
+
         public Article GetArticle(string id, string fields = "*")
         {
             var result = _client.GetArticle(new GlobalRequest { Id = id, Fields = fields });
@@ -42,6 +48,21 @@ namespace ASY.Hrefs.BLL.Service
             var result = _client.ListArticleByPaging(new GlobalRequest { Size = size, Skip = skip, Fields = fields });
             var list = result.Items.Select(p => _mapper.Map<Article>(p));
             return list;
+        }
+
+        public IEnumerable<Article> PagerArticleList(int size, int skip, string id, string title, string catalog, out int total, string fields = "*")
+        {
+            var result = _client.PagerArticleList(new GlobalRequest { Size = size, Skip = skip, Title = title, Fields = fields });
+            var list = result.Items.Select(p => _mapper.Map<Article>(p));
+            total = result.Total;
+            return list;
+        }
+
+        public int SaveArticle(Article article)
+        {
+            var item = _mapper.Map<ArticleProto>(article);
+            var result = _client.SaveArticle(item);
+            return result.Result;
         }
     }
 }
