@@ -18,12 +18,23 @@ namespace ASY.Hrefs.BLL.Service
         {
             var configuration = new MapperConfiguration(cfg =>
             {
+                cfg.CreateMap<Article, ArticleProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+                cfg.CreateMap<Link, LinkProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+                cfg.CreateMap<Account, AccountProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+
                 cfg.CreateMap<ArticleProto, Article>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
                 cfg.CreateMap<LinkProto, Link>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+                cfg.CreateMap<AccountProto, Account>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
             });
             configuration.AssertConfigurationIsValid();
             _mapper = configuration.CreateMapper();
             _client = HrefsDispatcher.Instance(remote.Value.Url);
+        }
+
+        public int DeleteLink(string id)
+        {
+            var reply = _client.DeleteLink(new GlobalRequest { Id = id });
+            return reply.Result;
         }
 
         public IEnumerable<Link> GetAllLink()
@@ -52,10 +63,25 @@ namespace ASY.Hrefs.BLL.Service
             return list;
         }
 
+        public IEnumerable<Link> PagerLinkList(int size, int offset, string linktype, string title, string url, out int total)
+        {
+            var result = _client.PagerLinkList(new GlobalRequest { Size = size, Offset = offset, Linktype = linktype, Title = title, Url = url });
+            var list = result.Items.Select(p => _mapper.Map<Link>(p));
+            total = result.Total;
+            return list;
+        }
+
+        public int SaveLink(Link link)
+        {
+            var item = _mapper.Map<LinkProto>(link);
+            var result = _client.SaveLink(item);
+            return result.Result;
+        }
+
         public int UpdatedLinkVisited(string id)
         {
-            var reply = _client.UpdatedLinkVisited(new GlobalRequest { Id = id });
-            return reply.Result;
+            var result = _client.UpdatedLinkVisited(new GlobalRequest { Id = id });
+            return result.Result;
         }
     }
 }

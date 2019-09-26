@@ -10,9 +10,21 @@ service Hrefs {
 	rpc LinksVisitedCount (Empty) returns (GlobalResponse);
 	rpc UpdatedLinkVisited (GlobalRequest) returns (GlobalResponse);
 	rpc GetLink (GlobalRequest) returns (LinkProto);
+	rpc PagerLinkList (GlobalRequest) returns (LinkPagerResponse);
+	rpc SaveLink (LinkProto) returns (GlobalResponse);
+	rpc DeleteLink (GlobalRequest) returns (GlobalResponse);
 
 	rpc ListArticleByPaging (GlobalRequest) returns (ArticleListResponse);
 	rpc GetArticle (GlobalRequest) returns (ArticleProto);
+	rpc PagerArticleList (GlobalRequest) returns (ArticlePagerResponse);
+	rpc SaveArticle (ArticleProto) returns (GlobalResponse);
+	rpc DeleteArticle (GlobalRequest) returns (GlobalResponse);
+
+	rpc GetAccount (GlobalRequest) returns (AccountProto);
+	rpc GetLogin (GlobalRequest) returns (AccountProto);
+	rpc PagerAccountList (GlobalRequest) returns (AccountPagerResponse);
+	rpc SaveAccount (AccountProto) returns (GlobalResponse);
+	rpc DeleteAccount (GlobalRequest) returns (GlobalResponse);
 }
 
 message Empty {
@@ -25,6 +37,10 @@ message GlobalRequest {
 	int32 Size = 4;
 	int32 Skip = 5;
 	string Id = 6;
+	string Password = 7;
+	int32 Offset = 8;
+	string Title = 9;
+	string Url = 10;
 }
 
 message GlobalResponse {
@@ -55,10 +71,35 @@ message LinkProto {
 	string CreateTime = 8;
 }
 
+message AccountProto {
+	int32 Id = 1;
+	string UserId = 2;
+	string Password = 3;
+	string UserName = 4;
+	string RegDate = 5;
+	string LastLoginDate = 6;
+	int32 Status = 7;
+}
+
 message LinkListResponse {
 	repeated LinkProto Items = 1;
 }
 
 message ArticleListResponse {
 	repeated ArticleProto Items = 1;
+}
+
+message LinkPagerResponse {
+	int32 Total = 1;
+	repeated LinkProto Items = 2;
+}
+
+message ArticlePagerResponse {
+	int32 Total = 1;
+	repeated ArticleProto Items = 2;
+}
+
+message AccountPagerResponse {
+	int32 Total = 1;
+	repeated AccountProto Items = 2;
 }

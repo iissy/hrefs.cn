@@ -7,10 +7,13 @@ namespace ASY.Hrefs.BLL.IService
 {
     public interface ILinkService
     {
+        int SaveLink(Link link);
+        int DeleteLink(string id);
         IEnumerable<Link> GetAllLink();
         int LinksVisitedCount();
         IEnumerable<Link> ListLinkByCat(string linktype);
         int UpdatedLinkVisited(string id);
         Link GetLink(string id, string fields = "*");
+        IEnumerable<Link> PagerLinkList(int size, int offset, string linktype, string title, string url, out int total);
     }
 }

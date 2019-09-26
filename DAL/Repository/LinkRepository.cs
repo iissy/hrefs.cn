@@ -3,6 +3,7 @@ using ASY.Hrefs.Model.Models;
 using ASY.Hrefs.Util.MiscHelpers;
 using Dapper;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -73,6 +74,72 @@ namespace ASY.Hrefs.DAL.Repository
             }
 
             return link;
+        }
+
+        public IEnumerable<Link> PagerLinkList(int size, int offset, string linktype, string title, string url, out int total)
+        {
+            string sqlwhere = "where 1=1";
+            if (!string.IsNullOrWhiteSpace(linktype))
+            {
+                sqlwhere += $" and linktype = @linktype";
+            }
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                sqlwhere += $" and title like '%{title}%'";
+            }
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                sqlwhere += $" and url like '%{url}%'";
+            }
+
+            IEnumerable<Link> list;
+            total = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                string sql = string.Format($"SELECT * FROM link {sqlwhere} ORDER BY createtime desc LIMIT @size OFFSET @offset");
+                list = conn.Query<Link>(sql, new { linktype, size, offset });
+
+                total = conn.QueryFirstOrDefault<int>($"select count(*) from link {sqlwhere}", new { linktype });
+            }
+
+            return list;
+        }
+
+        public int SaveLink(Link link)
+        {
+            int result = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                Guid guid = new Guid();
+                if (Guid.TryParse(link.Id, out guid))
+                {
+                    result = conn.Execute("update link set " +
+                        "title=@Title," +
+                        "url=@Url," +
+                        "icon=@Icon," +
+                        "linktype=@LinkType," +
+                        "brief=@Brief where id=@Id", link);
+                }
+                else
+                {
+                    link.Id = Guid.NewGuid().ToString();
+                    result = conn.Execute("INSERT INTO link(id,icon,linktype,title,url,brief)" +
+                        "values(@Id,@Icon,@LinkType,@Title,@Url,@Brief)", link);
+                }
+            }
+
+            return result;
+        }
+
+        public int DeleteLink(string id)
+        {
+            int result = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                result = conn.Execute("delete from link where Id = @Id", new { Id = id });
+            }
+
+            return result;
         }
     }
 }

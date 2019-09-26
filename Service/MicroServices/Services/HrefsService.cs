@@ -26,6 +26,11 @@ namespace MicroServices
             {
                 cfg.CreateMap<Article, ArticleProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
                 cfg.CreateMap<Link, LinkProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+                cfg.CreateMap<Account, AccountProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+
+                cfg.CreateMap<ArticleProto, Article > (MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+                cfg.CreateMap<LinkProto, Link>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
+                cfg.CreateMap<AccountProto, Account>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
             });
             configuration.AssertConfigurationIsValid();
             _mapper = configuration.CreateMapper();
@@ -87,6 +92,29 @@ namespace MicroServices
             var result = _linkRepository.GetLink(request.Id, request.Fields);
             var response = _mapper.Map<LinkProto>(result);
             return Task.FromResult(response);
+        }
+
+        public override Task<LinkPagerResponse> PagerLinkList(GlobalRequest request, ServerCallContext context)
+        {
+            var total = 0;
+            var result = _linkRepository.PagerLinkList(request.Size, request.Offset, request.Linktype, request.Title, request.Url, out total);
+            var response = new LinkPagerResponse();
+            response.Total = total;
+            response.Items.AddRange(result.Select(p => _mapper.Map<LinkProto>(p)));
+            return Task.FromResult(response);
+        }
+
+        public override Task<GlobalResponse> SaveLink(LinkProto request, ServerCallContext context)
+        {
+            var item = _mapper.Map<Link>(request);
+            var result = _linkRepository.SaveLink(item);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
+        public override Task<GlobalResponse> DeleteLink(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _linkRepository.DeleteLink(request.Id);
+            return Task.FromResult(new GlobalResponse { Result = result });
         }
     }
 }
