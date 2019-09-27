@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ASY.Hrefs.BLL.IService;
 using ASY.Hrefs.BLL.Service;
 using ASY.Hrefs.Util.UIHelpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,11 @@ namespace hrefs.cn
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<ILinkService, LinkService>();
             services.AddTransient<IAccountService, AccountService>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/login";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

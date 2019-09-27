@@ -28,7 +28,7 @@ namespace hrefs.cn.Controllers
         }
 
         [AllowAnonymous]
-        [Route("main/login")]
+        [Route("login")]
         public IActionResult Login()
         {
             return View("Index");
