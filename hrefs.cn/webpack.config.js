@@ -20,7 +20,7 @@ module.exports = {
         new webpack.ProgressPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            filename: '../Views/Shared/_Webpack.cshtml',
+            filename: '../../Views/Shared/_Webpack.cshtml',
             template: 'Frontend/_Webpack.cshtml',
             inject: 'body'
         }),
