@@ -40,7 +40,6 @@ namespace hrefs.cn.Controllers
             return View();
         }
 
-        [AllowAnonymous]
         [Route("account/list/{size}/{pageno}")]
         public JsonResult PagerAccountList(int size, int pageno)
         {
@@ -57,9 +56,8 @@ namespace hrefs.cn.Controllers
             return Json(new { result });
         }
 
-        [AllowAnonymous]
         [Route("article/list/{size}/{pageno}")]
-        public JsonResult PagerArticleList(int size, int pageno, string id, string title, string catalog)
+        public JsonResult PagerArticleList(int size, int pageno, [FromBody]string id, [FromBody]string title, [FromBody]string catalog)
         {
             int total = 0;
             var list = _articleService.PagerArticleList(size, (pageno - 1) * size, id, title, catalog, out total, "id,title,origin,visited,catalog,createTime");
@@ -88,9 +86,8 @@ namespace hrefs.cn.Controllers
             return Json(new { result });
         }
 
-        [AllowAnonymous]
         [Route("link/list/{size}/{pageno}")]
-        public JsonResult List(string linktype, string title, string url, int size, int pageno)
+        public JsonResult List([FromBody]string linktype, [FromBody]string title, [FromBody]string url, int size, int pageno)
         {
             int total = 0;
             var list = _linkService.PagerLinkList(size, (pageno - 1) * size, linktype, title, url, out total);
