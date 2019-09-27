@@ -40,6 +40,7 @@ namespace hrefs.cn.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [Route("account/list/{size}/{pageno}")]
         public JsonResult PagerAccountList(int size, int pageno)
         {
@@ -56,6 +57,7 @@ namespace hrefs.cn.Controllers
             return Json(new { result });
         }
 
+        [AllowAnonymous]
         [Route("article/list/{size}/{pageno}")]
         public JsonResult PagerArticleList(int size, int pageno, string id, string title, string catalog)
         {
@@ -64,14 +66,14 @@ namespace hrefs.cn.Controllers
             return Json(new { total, list });
         }
 
-        [Route("article/get")]
+        [Route("article/get/{id}")]
         public JsonResult GetArticle(string id)
         {
             var result = _articleService.GetArticle(id);
             return Json(result);
         }
 
-        [Route("article/delete")]
+        [Route("article/delete/{id}")]
         public JsonResult DeleteArticle(string id)
         {
             int result = _articleService.DeleteArticle(id);
@@ -86,6 +88,7 @@ namespace hrefs.cn.Controllers
             return Json(new { result });
         }
 
+        [AllowAnonymous]
         [Route("link/list/{size}/{pageno}")]
         public JsonResult List(string linktype, string title, string url, int size, int pageno)
         {
@@ -94,14 +97,14 @@ namespace hrefs.cn.Controllers
             return Json(new { total, list });
         }
 
-        [Route("link/get")]
+        [Route("link/get/{id}")]
         public JsonResult GetLink(string id)
         {
             var result = _linkService.GetLink(id);
             return Json(result);
         }
 
-        [Route("link/delete")]
+        [Route("link/delete/{id}")]
         public JsonResult DeleteLink(string id)
         {
             int result = _linkService.DeleteLink(id);
