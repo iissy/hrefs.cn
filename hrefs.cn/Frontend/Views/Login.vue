@@ -37,6 +37,7 @@
 
 <script>
     import httper from '../util/httper';
+    import router from '../router';
 
     export default {
         data: function () {
