@@ -53,7 +53,7 @@
                         UserId: self.UID,
                         Password: self.PWD
                     }).then(function (response) {
-                        if (response.data.result > 1) {
+                        if (response.data.result > 0) {
                             router.push({ name: 'Main' });
                         }
                     }).catch(function (error) {
