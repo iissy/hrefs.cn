@@ -111,7 +111,7 @@ namespace hrefs.cn.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public async Task<IActionResult> Login(string UserId, string Password)
+        public async Task<JsonResult> Login(string UserId, string Password)
         {
             Password = MD5Helpers.ComputeHash(Password);
             Account account = _accountService.GetLogin(UserId, Password);
@@ -121,12 +121,11 @@ namespace hrefs.cn.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Email, account.UserId, ClaimValueTypes.String));
                 identity.AddClaim(new Claim(ClaimTypes.Name, account.UserName, ClaimValueTypes.String));
                 await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { ExpiresUtc = DateTime.UtcNow.AddHours(24) });
-
-                return RedirectToAction("Index", "Main");
+                return Json(new { result = account.Id });
             }
             else
             {
-                return View();
+                return Json(new { result = 0 });
             }
         }
     }
