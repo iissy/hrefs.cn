@@ -16,6 +16,7 @@ const routes = [
     {
         path: '/main',
         meta: { title: "首页" },
+        name: 'Main',
         component: Main
     }, {
         path: '/login',
