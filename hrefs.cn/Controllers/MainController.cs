@@ -40,7 +40,6 @@ namespace hrefs.cn.Controllers
             return View();
         }
 
-        [HttpPost]
         [Route("account/list/{size}/{pageno}")]
         public JsonResult PagerAccountList(int size, int pageno)
         {
@@ -57,7 +56,6 @@ namespace hrefs.cn.Controllers
             return Json(new { result });
         }
 
-        [HttpPost]
         [Route("article/list/{size}/{pageno}")]
         public JsonResult PagerArticleList(int size, int pageno, string id, string title, string catalog)
         {
@@ -88,7 +86,6 @@ namespace hrefs.cn.Controllers
             return Json(new { result });
         }
 
-        [HttpPost]
         [Route("link/list/{size}/{pageno}")]
         public JsonResult List(string linktype, string title, string url, int size, int pageno)
         {
