@@ -27,6 +27,13 @@ namespace hrefs.cn.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
+        [Route("main/login")]
+        public IActionResult Login()
+        {
+            return View("Index");
+        }
+
         [Route("main/{**path}")]
         public IActionResult Index()
         {
