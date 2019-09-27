@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import Login from '../views/login';
 import Main from '../views/main';
 import LinkAdd from '../views/link/add';
 import LinkList from '../views/link/list';
@@ -13,12 +14,13 @@ Vue.use(Router);
 
 const routes = [
     {
-        path: '/',
-        redirect: '/main'
-    }, {
         path: '/main',
         meta: { title: "首页" },
         component: Main
+    }, {
+        path: '/main/login',
+        meta: { title: "登陆" },
+        component: Login
     }, {
         path: '/main/link/add',
         meta: { title: "添加导航" },
