@@ -57,9 +57,10 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("article/list/{size}/{pageno}")]
-        public JsonResult PagerArticleList(int size, int pageno, [FromBody]string id, [FromBody]string title, [FromBody]string catalog)
+        public JsonResult PagerArticleList(int size, int pageno)
         {
             int total = 0;
+            string id = string.Empty, title = string.Empty, catalog = string.Empty;
             var list = _articleService.PagerArticleList(size, (pageno - 1) * size, id, title, catalog, out total, "id,title,origin,visited,catalog,createTime");
             return Json(new { total, list });
         }
@@ -87,9 +88,10 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("link/list/{size}/{pageno}")]
-        public JsonResult List([FromBody]string linktype, [FromBody]string title, [FromBody]string url, int size, int pageno)
+        public JsonResult List(int size, int pageno)
         {
             int total = 0;
+            string linktype = string.Empty, title = string.Empty, url = string.Empty;
             var list = _linkService.PagerLinkList(size, (pageno - 1) * size, linktype, title, url, out total);
             return Json(new { total, list });
         }
