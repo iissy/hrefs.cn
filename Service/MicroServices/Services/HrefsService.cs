@@ -107,6 +107,12 @@ namespace MicroServices
             return Task.FromResult(new GlobalResponse { Result = result });
         }
 
+        public override Task<GlobalResponse> DeleteArticle(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _articleRepository.DeleteArticle(request.Id);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
         public override Task<ArticlePagerResponse> PagerArticleList(GlobalRequest request, ServerCallContext context)
         {
             var total = 0;
