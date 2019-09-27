@@ -16,17 +16,7 @@ namespace ASY.Hrefs.BLL.Service
         private MicroServices.Hrefs.HrefsClient _client;
         public LinkService(IOptions<RemoteService> remote)
         {
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Article, ArticleProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
-                cfg.CreateMap<Link, LinkProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
-                cfg.CreateMap<Account, AccountProto>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
-
-                cfg.CreateMap<ArticleProto, Article>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
-                cfg.CreateMap<LinkProto, Link>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
-                cfg.CreateMap<AccountProto, Account>(MemberList.None).ForAllMembers(opt => opt.Condition((source, destination, sourceMember, destMember) => sourceMember != null));
-            });
-            configuration.AssertConfigurationIsValid();
+            var configuration = Mapping.GetMapperConfiguration();
             _mapper = configuration.CreateMapper();
             _client = HrefsDispatcher.Instance(remote.Value.Url);
         }

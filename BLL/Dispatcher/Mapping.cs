@@ -1,7 +1,8 @@
 ﻿using ASY.Hrefs.Model.Models;
 using AutoMapper;
+using MicroServices;
 
-namespace MicroServices
+namespace ASY.Hrefs.BLL.Dispatcher
 {
     public static class Mapping
     {

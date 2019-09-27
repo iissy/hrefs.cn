@@ -3,15 +3,21 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>ASY.Hrefs.BLL.Dispatcher</AssemblyName>
+    <RootNamespace>ASY.Hrefs.BLL.Dispatcher</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Google.Protobuf" Version="3.9.2" />
     <PackageReference Include="Grpc.Net.Client" Version="2.23.2" />
     <PackageReference Include="Grpc.Tools" Version="2.23.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Model\Models\Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
