@@ -34,7 +34,7 @@ namespace hrefs.cn.Controllers
             return View("Index");
         }
 
-        [Route("main/{**path}")]
+        [Route("main/{**path}", Name ="main")]
         public IActionResult Index()
         {
             return View();
@@ -114,7 +114,7 @@ namespace hrefs.cn.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public JsonResult Login(string UserId, string Password)
+        public async Task<IActionResult> Login(string UserId, string Password)
         {
             Password = MD5Helpers.ComputeHash(Password);
             Account account = _accountService.GetLogin(UserId, Password);
@@ -123,12 +123,13 @@ namespace hrefs.cn.Controllers
                 ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim(ClaimTypes.Email, account.UserId, ClaimValueTypes.String));
                 identity.AddClaim(new Claim(ClaimTypes.Name, account.UserName, ClaimValueTypes.String));
-                HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { ExpiresUtc = DateTime.UtcNow.AddHours(24) }).GetAwaiter();
-                return Json(new { result = account.Id });
+                await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { ExpiresUtc = DateTime.UtcNow.AddHours(24) });
+
+                return RedirectToRoute("main");
             }
             else
             {
-                return Json(new { result = 0 });
+                return View();
             }
         }
     }
