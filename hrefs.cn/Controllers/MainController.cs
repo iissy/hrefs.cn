@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace hrefs.cn.Controllers
 {
+    [Authorize]
     public class MainController : Controller
     {
         private readonly ILogger<HomeController> _logger;
