@@ -1,7 +1,14 @@
 ﻿using ASY.Hrefs.BLL.IService;
 using ASY.Hrefs.Model.Models;
+using ASY.Hrefs.Util.UIHelpers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace hrefs.cn.Controllers
 {
@@ -91,6 +98,28 @@ namespace hrefs.cn.Controllers
         {
             int result = _linkService.DeleteLink(id);
             return Json(new { result = result });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("login")]
+        public async Task<IActionResult> Login(string UserId, string Password)
+        {
+            Password = MD5Helpers.ComputeHash(Password);
+            Account account = _accountService.GetLogin(UserId, Password);
+            if (account?.Id > 0 && account?.Status == 0)
+            {
+                ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.Email, account.UserId, ClaimValueTypes.String));
+                identity.AddClaim(new Claim(ClaimTypes.Name, account.UserName, ClaimValueTypes.String));
+                await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { ExpiresUtc = DateTime.UtcNow.AddHours(24) });
+
+                return RedirectToAction("Index", "Main");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
