@@ -115,7 +115,7 @@
         image: {
             sizeLimit: 512 * 1024,
             upload: {
-                url: '/home/upload'
+                url: '/upload'
             }
         }
     });
