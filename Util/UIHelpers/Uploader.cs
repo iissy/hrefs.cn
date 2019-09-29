@@ -7,7 +7,6 @@ namespace ASY.Hrefs.Util.UIHelpers
 {
     public class Uploader
     {
-        private readonly string _root;
         private string _fileName;
         private long _length;
         private string _contentType;
@@ -32,7 +31,6 @@ namespace ASY.Hrefs.Util.UIHelpers
 
         public Uploader(string root, string filename, long length, string contentType):this()
         {
-            _root = root;
             _fileName = filename;
             _length = length;
             _contentType = contentType.ToLowerInvariant();
