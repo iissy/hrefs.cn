@@ -100,7 +100,7 @@
         image: {
             sizeLimit: 512 * 1024,
             upload: {
-                url: '/home/upload'
+                url: '/upload'
             }
         }
     });
@@ -153,7 +153,7 @@
             },
             change: function () {
                 var self = this;
-                $("#file").upload('/home/upload', function (response) {
+                $("#file").upload('/upload', function (response) {
                     self.Icon = response.data;
                 });
             },

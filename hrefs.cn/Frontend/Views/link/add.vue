@@ -163,7 +163,7 @@
             },
             change: function () {
                 var self = this;
-                $("#file").upload('/home/upload', function (response) {
+                $("#file").upload('/upload', function (response) {
                     self.Icon = response.data;
                 });
             },

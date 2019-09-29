@@ -138,6 +138,7 @@ namespace hrefs.cn.Controllers
         }
 
         [HttpPost]
+        [Route("upload")]
         public JsonResult Upload()
         {
             IFormFile file = Request.Form.Files[0];
