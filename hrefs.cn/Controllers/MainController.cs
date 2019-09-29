@@ -4,9 +4,12 @@ using ASY.Hrefs.Util.UIHelpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -16,15 +19,17 @@ namespace hrefs.cn.Controllers
     public class MainController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IWebHostEnvironment _env;
         private IArticleService _articleService;
         private ILinkService _linkService;
         private IAccountService _accountService;
-        public MainController(ILogger<HomeController> logger, IArticleService articleService, ILinkService linkService, IAccountService accountService)
+        public MainController(ILogger<HomeController> logger, IWebHostEnvironment env, IArticleService articleService, ILinkService linkService, IAccountService accountService)
         {
             _articleService = articleService;
             _linkService = linkService;
             _accountService = accountService;
             _logger = logger;
+            _env = env;
         }
 
         [AllowAnonymous]
@@ -129,6 +134,33 @@ namespace hrefs.cn.Controllers
             else
             {
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Upload()
+        {
+            IFormFile file = Request.Form.Files[0];
+            Uploader uploader = new Uploader(_env.WebRootPath, file.FileName, file.Length, file.ContentType);
+            if (string.IsNullOrWhiteSpace(uploader.FilePath) || string.IsNullOrWhiteSpace(uploader.FileUrl))
+            {
+                return Json(new { status = false, url = uploader.Message });
+            }
+            else
+            {
+                Stream sm = file.OpenReadStream();
+                byte[] bytes = new byte[sm.Length];
+                sm.Read(bytes, 0, bytes.Length);
+
+                using (FileStream fs = System.IO.File.Create(uploader.FilePath))
+                {
+                    using (BinaryWriter bw = new BinaryWriter(fs))
+                    {
+                        bw.Write(bytes);
+                    }
+                }
+
+                return Json(new { status = uploader.Status, url = uploader.FileUrl, path = uploader.FilePath, ok = uploader.Status, data = uploader.FileUrl, msg = uploader.Message });
             }
         }
     }
