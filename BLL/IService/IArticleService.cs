@@ -10,5 +10,6 @@ namespace ASY.Hrefs.BLL.IService
         IEnumerable<Article> ListArticleByPaging(int size, int skip, string fields = "*");
         Article GetArticle(string id, string fields = "*");
         IEnumerable<Article> PagerArticleList(int size, int skip, string id, string title, string catalog, out int total, string fields = "*");
+        int UpdatedArticleVisited(string id);
     }
 }

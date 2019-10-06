@@ -338,3 +338,9 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+/hrefs.cn/wwwroot/images
+/hrefs.cn/wwwroot/attached
+/hrefs.cn/wwwroot/upload
+/hrefs.cn/wwwroot/upfiles
+/hrefs.cn/wwwroot/Uploads

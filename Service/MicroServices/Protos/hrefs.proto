@@ -19,6 +19,7 @@ service Hrefs {
 	rpc PagerArticleList (GlobalRequest) returns (ArticlePagerResponse);
 	rpc SaveArticle (ArticleProto) returns (GlobalResponse);
 	rpc DeleteArticle (GlobalRequest) returns (GlobalResponse);
+	rpc UpdatedArticleVisited (GlobalRequest) returns (GlobalResponse);
 
 	rpc GetAccount (GlobalRequest) returns (AccountProto);
 	rpc GetLogin (GlobalRequest) returns (AccountProto);

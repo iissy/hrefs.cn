@@ -3,6 +3,7 @@ using ASY.Hrefs.Model.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace hrefs.cn.Components
 {
@@ -21,10 +22,11 @@ namespace hrefs.cn.Components
             return View(items);
         }
 
-        private Task<IEnumerable<Article>> GetItemsAsync(int size, int skip)
+        private Task<KeyValuePair<string, IEnumerable<Article>>> GetItemsAsync(int size, int skip)
         {
             var list = _articleService.ListArticleByPaging(size, skip, "id,title");
-            return Task<IEnumerable<Article>>.Factory.StartNew(() => { return list; });
+            var url = _articleService.ListArticleByPaging(1, 0, "Icon").FirstOrDefault().Icon;
+            return Task<KeyValuePair<string, IEnumerable<Article>>>.Factory.StartNew(() => { return new KeyValuePair<string, IEnumerable<Article>>(url, list); });
         }
     }
 }

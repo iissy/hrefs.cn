@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dispatcher", "BLL\Dispatche
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIHelpers", "Util\UIHelpers\UIHelpers.csproj", "{160C6B0F-9F60-4003-B38B-5575AE91B2ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Util\Common\Common.csproj", "{0E374ED8-472D-4AB6-B63E-BAD82C8F00A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Util\Common\Common.csproj", "{0E374ED8-472D-4AB6-B63E-BAD82C8F00A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

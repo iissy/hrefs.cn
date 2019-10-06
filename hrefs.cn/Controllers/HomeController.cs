@@ -39,12 +39,10 @@ namespace hrefs.cn.Controllers
         [Route("")]
         public IActionResult Index()
         {
-            ViewBag.VisitedCount = _linkService.LinksVisitedCount();
-
             string backend = "NodeJS,PHP,DotNet,Golang,Java,Python";
             string frontend = "CSS,JQuery,Charts,Vue,前端框架,富文本编辑器,打包构建";
             string hot = "架构师,人工智能,区块链,大数据,数据库,运维工具";
-            string other = "实用工具,其他,软件,协同工具";
+            string other = "实用工具,其他,软件,协同工具,教程";
 
             var sites = _linkService.GetAllLink();
             var backendGroups = sites.Where(p => backend.Split(',').Contains(p.LinkType)).GroupBy(p => p.LinkType);
@@ -73,14 +71,14 @@ namespace hrefs.cn.Controllers
             ViewBag.other = otherResult;
             ViewBag.common = sites.Where(p => p.LinkType == "公共");
             ViewBag.info = sites.Where(p => p.LinkType == "资讯");
-            ViewBag.course = sites.Where(p => p.LinkType == "教程");
 
             return View();
         }
 
         [Route("article/{id}")]
-        public ActionResult Detail(string id)
+        public IActionResult Detail(string id)
         {
+            _articleService.UpdatedArticleVisited(id);
             Article article = _articleService.GetArticle(id, "id,title,brief,body,createtime");
             return View(article);
         }
@@ -91,6 +89,12 @@ namespace hrefs.cn.Controllers
             _linkService.UpdatedLinkVisited(id);
             var url = _linkService.GetLink(id, "url").Url;
             Response.Redirect(url);
+        }
+
+        [Route("payme")]
+        public IActionResult Payme()
+        {
+            return View(_linkService.LinksVisitedCount());
         }
     }
 }

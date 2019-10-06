@@ -2,13 +2,10 @@
     Layout = null;
     var common = (IEnumerable<Link>)ViewBag.common;
     var info = (IEnumerable<Link>)ViewBag.info;
-    var course = (IEnumerable<Link>)ViewBag.course;
     var frontend = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.frontend;
     var backend = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.backend;
     var hot = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.hot;
     var other = (IEnumerable<KeyValuePair<string, IGrouping<string, Link>>>)ViewBag.other;
-
-    int VisitedCount = (int)ViewBag.VisitedCount;
 }
 
 <!DOCTYPE html>
@@ -28,15 +25,10 @@
 <body>
     @await Html.PartialAsync("_header")
     <div id="main">
-        <div style="float:left;width:330px;">
-            @await Component.InvokeAsync("Article", new { size = 10, skip = 0 })
-            @await Html.PartialAsync("_pay")
-            @await Html.PartialAsync("_aboutme", VisitedCount)
-        </div>
-        <div style="float:right;width:960px;">
+        <div style="">
             @await Html.PartialAsync("_common", common)
             @await Html.PartialAsync("_info", info)
-            @await Html.PartialAsync("_course", course)
+            @await Component.InvokeAsync("Article", new { size = 15, skip = 0 })
             <div id="other">@await Html.PartialAsync("_group", other)</div>
             <div id="backend">@await Html.PartialAsync("_group", backend)</div>
             <div id="frontend">@await Html.PartialAsync("_group", frontend)</div>

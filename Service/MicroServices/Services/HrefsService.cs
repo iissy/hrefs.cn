@@ -113,6 +113,12 @@ namespace MicroServices
             return Task.FromResult(new GlobalResponse { Result = result });
         }
 
+        public override Task<GlobalResponse> UpdatedArticleVisited(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _articleRepository.UpdatedArticleVisited(request.Id);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
         public override Task<ArticlePagerResponse> PagerArticleList(GlobalRequest request, ServerCallContext context)
         {
             var total = 0;

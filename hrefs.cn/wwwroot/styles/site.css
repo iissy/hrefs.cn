@@ -89,7 +89,7 @@ a {
 }
 
 #footer {
-    margin: 20px auto 0 auto;
+    margin: 10px auto 0 auto;
     padding: 20px 0 20px 0;
     text-align: center;
     background-color: #fefefe;
@@ -139,17 +139,18 @@ ul > :last-child.site-course-item { margin-right:0; }
 .site-item {
     position: relative;
     display: inline-block;
-    vertical-align:middle;
+    vertical-align: middle;
     margin: 0;
     padding: 0;
     height: 30px;
     line-height: 30px;
     font-size: 14px;
     color: #000;
-    text-align:left;
+    text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    width: 160px;
 }
 
 .site-hd-item a img { height: 20px;vertical-align: middle; }
@@ -212,7 +213,6 @@ ul > :last-child.site-course-item { margin-right:0; }
     display: inline-block;
     vertical-align: top;
     padding: 0 0 8px;
-    width: 103px;
     line-height: 20px;
 }
 
@@ -229,8 +229,11 @@ ul > :last-child.site-course-item { margin-right:0; }
     overflow:hidden;
 }
 
-#hot, #frontend, #backend, #info, #common, #article, #pay, #other, #soft {
+#hot, #frontend, #backend, #common, #article, #other, #soft {
     margin-top: 10px;
+    background-color: #ffffff;
+}
+#info, #pay {
     background-color: #ffffff;
 }
 #hot, #frontend, #backend, #other {

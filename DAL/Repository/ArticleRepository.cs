@@ -107,5 +107,16 @@ namespace ASY.Hrefs.DAL.Repository
 
             return result;
         }
+
+        public int UpdatedArticleVisited(string id)
+        {
+            int result = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                result = conn.Execute("update article set visited=visited+1 where id=@id", new { id });
+            }
+
+            return result;
+        }
     }
 }

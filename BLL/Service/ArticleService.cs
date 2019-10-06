@@ -54,5 +54,11 @@ namespace ASY.Hrefs.BLL.Service
             var result = _client.SaveArticle(item);
             return result.Result;
         }
+
+        public int UpdatedArticleVisited(string id)
+        {
+            var result = _client.UpdatedArticleVisited(new GlobalRequest { Id = id });
+            return result.Result;
+        }
     }
 }
