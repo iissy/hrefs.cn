@@ -129,7 +129,6 @@
             pagechange: function (currentPage) {
                 var self = this;
                 self.current = currentPage;
-                router.push({ name: 'ArticleList', params: { size: self.display, pageno: self.current } });
                 self.load();
             },
             load: function () {
