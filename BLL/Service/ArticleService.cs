@@ -42,7 +42,7 @@ namespace ASY.Hrefs.BLL.Service
 
         public IEnumerable<Article> PagerArticleList(int size, int skip, string id, string title, string catalog, out int total, string fields = "*")
         {
-            var result = _client.PagerArticleList(new GlobalRequest { Size = size, Skip = skip, Title = title, Fields = fields });
+            var result = _client.PagerArticleList(new GlobalRequest { Size = size, Skip = skip, Title = title ?? "", Fields = fields });
             var list = result.Items.Select(p => _mapper.Map<Article>(p));
             total = result.Total;
             return list;

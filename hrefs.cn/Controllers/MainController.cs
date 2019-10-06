@@ -62,10 +62,9 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("article/list/{size}/{pageno}")]
-        public JsonResult PagerArticleList(int size, int pageno)
+        public JsonResult PagerArticleList(int size, int pageno, string id, string title, string catalog)
         {
-            int total = 0;
-            string id = string.Empty, title = string.Empty, catalog = string.Empty;
+            int total;
             var list = _articleService.PagerArticleList(size, (pageno - 1) * size, id, title, catalog, out total, "id,title,origin,visited,catalog,createTime");
             return Json(new { total, list });
         }
@@ -81,7 +80,7 @@ namespace hrefs.cn.Controllers
         public JsonResult DeleteArticle(string id)
         {
             int result = _articleService.DeleteArticle(id);
-            return Json(new { result = result });
+            return Json(new { result });
         }
 
         [HttpPost]
@@ -93,10 +92,9 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("link/list/{size}/{pageno}")]
-        public JsonResult List(int size, int pageno)
+        public JsonResult List(int size, int pageno, string linktype, string title, string url)
         {
-            int total = 0;
-            string linktype = string.Empty, title = string.Empty, url = string.Empty;
+            int total;
             var list = _linkService.PagerLinkList(size, (pageno - 1) * size, linktype, title, url, out total);
             return Json(new { total, list });
         }
@@ -112,7 +110,7 @@ namespace hrefs.cn.Controllers
         public JsonResult DeleteLink(string id)
         {
             int result = _linkService.DeleteLink(id);
-            return Json(new { result = result });
+            return Json(new { result });
         }
 
         [HttpPost]
