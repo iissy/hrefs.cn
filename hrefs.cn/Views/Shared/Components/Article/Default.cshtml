@@ -1,13 +1,10 @@
-﻿@model KeyValuePair<string, IEnumerable<Article>>
+﻿@model IEnumerable<Article>
 <div id="article" style="margin-top:10px;">
-    <div style="float:left;margin-right:30px;">
-        <img src="@Model.Key" height="150"/>
-    </div>
-    <div style="max-width:1300px;" class="container">
+    <div style="max-width:1300px;padding-left:40px;" class="container">
         <div class="row">
-            @foreach (var item in Model.Value)
+            @foreach (var item in Model)
             {
-                <div class="site-item col-4" style="padding-left:10px;"><a href="/article/@item.Id">@Html.Raw(item.Title)</a></div>
+                <div class="site-item col-4" style="padding-left:10px;"><img src="/new.png" style="height:20px;margin-right:10px;"/><a href="/article/@item.Id" style="color:#13227a;">@Html.Raw(item.Title)</a></div>
             }
         </div>
     </div>
