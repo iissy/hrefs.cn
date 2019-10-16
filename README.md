@@ -12,5 +12,8 @@
 # nodejs包安装
 npm install axios clean-webpack-plugin copy-webpack-plugin html-webpack-plugin jquery qs style-loader vue vue-html5-editor vue-loader vue-router vue-style-loader vue-template-compiler webpack webpack-cli webpack-merge --save-dev
 
+# 参考技术文档
+https://www.hrefs.cn/article/net-core-3.0-gprc-hrefs-cn-release
+
 # 问题建议
 https://github.com/iissy/hrefs.cn/issues
