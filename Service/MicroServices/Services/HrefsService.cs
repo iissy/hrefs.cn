@@ -40,7 +40,7 @@ namespace MicroServices
 
         public override Task<LinkListResponse> ListLinkByCat(GlobalRequest request, ServerCallContext context)
         {
-            var result = _linkRepository.ListLinkByCat(request.Linktype);
+            var result = _linkRepository.ListLinkByCat(request.Catid);
             var response = new LinkListResponse();
             response.Items.AddRange(result.Select(p => _mapper.Map<LinkProto>(p)));
             return Task.FromResult(response);
@@ -87,7 +87,7 @@ namespace MicroServices
         public override Task<LinkPagerResponse> PagerLinkList(GlobalRequest request, ServerCallContext context)
         {
             var total = 0;
-            var result = _linkRepository.PagerLinkList(request.Size, request.Offset, request.Linktype, request.Title, request.Url, out total);
+            var result = _linkRepository.PagerLinkList(request.Size, request.Offset, request.Catid, request.Title, request.Url, out total);
             var response = new LinkPagerResponse();
             response.Total = total;
             response.Items.AddRange(result.Select(p => _mapper.Map<LinkProto>(p)));

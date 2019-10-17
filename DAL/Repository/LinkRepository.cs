@@ -29,13 +29,13 @@ namespace ASY.Hrefs.DAL.Repository
             return list;
         }
 
-        public IEnumerable<Link> ListLinkByCat(string linktype)
+        public IEnumerable<Link> ListLinkByCat(string catid)
         {
             IEnumerable<Link> list;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
-                string sql = string.Format($"SELECT title,id,visited,brief FROM link where linkType = @linkType ORDER BY visited desc");
-                list = conn.Query<Link>(sql, new { linktype });
+                string sql = string.Format($"SELECT title,id,visited,brief FROM link where catid = @catid ORDER BY visited desc");
+                list = conn.Query<Link>(sql, new { catid });
 
             }
 
@@ -76,12 +76,12 @@ namespace ASY.Hrefs.DAL.Repository
             return link;
         }
 
-        public IEnumerable<Link> PagerLinkList(int size, int offset, string linktype, string title, string url, out int total)
+        public IEnumerable<Link> PagerLinkList(int size, int offset, string catid, string title, string url, out int total)
         {
             string sqlwhere = "where 1=1";
-            if (!string.IsNullOrWhiteSpace(linktype))
+            if (!string.IsNullOrWhiteSpace(catid))
             {
-                sqlwhere += $" and linktype = @linktype";
+                sqlwhere += $" and catid = @catid";
             }
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -97,9 +97,9 @@ namespace ASY.Hrefs.DAL.Repository
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
                 string sql = string.Format($"SELECT * FROM link {sqlwhere} ORDER BY createtime desc LIMIT @size OFFSET @offset");
-                list = conn.Query<Link>(sql, new { linktype, size, offset });
+                list = conn.Query<Link>(sql, new { catid, size, offset });
 
-                total = conn.QueryFirstOrDefault<int>($"select count(*) from link {sqlwhere}", new { linktype });
+                total = conn.QueryFirstOrDefault<int>($"select count(*) from link {sqlwhere}", new { catid });
             }
 
             return list;

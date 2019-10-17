@@ -11,9 +11,9 @@ namespace ASY.Hrefs.BLL.IService
         int DeleteLink(string id);
         IEnumerable<Link> GetAllLink();
         int LinksVisitedCount();
-        IEnumerable<Link> ListLinkByCat(string linktype);
+        IEnumerable<Link> ListLinkByCat(string catid);
         int UpdatedLinkVisited(string id);
         Link GetLink(string id, string fields = "*");
-        IEnumerable<Link> PagerLinkList(int size, int offset, string linktype, string title, string url, out int total);
+        IEnumerable<Link> PagerLinkList(int size, int offset, string catid, string title, string url, out int total);
     }
 }

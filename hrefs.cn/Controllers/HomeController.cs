@@ -29,11 +29,12 @@ namespace hrefs.cn.Controllers
             return View(_articleService.ListArticleByPaging(size, offset, "id,title,icon,brief,createTime"));
         }
 
-        [Route("links/{cat}")]
-        public IActionResult Links(string cat)
+        [Route("links/{catid}")]
+        public IActionResult Links(string catid)
         {
-            ViewBag.Cat = cat;
-            return View(_linkService.ListLinkByCat(cat));
+            var list = _linkService.ListLinkByCat(catid);
+            ViewBag.Cat = list.FirstOrDefault()?.LinkType;
+            return View(list);
         }
 
         [Route("")]

@@ -32,7 +32,7 @@ message Empty {
 }
 
 message GlobalRequest {
-	string Linktype = 1;
+	string Catid = 1;
 	int32 Limit = 2;
 	string Fields = 3;
 	int32 Size = 4;

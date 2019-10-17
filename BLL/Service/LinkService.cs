@@ -46,16 +46,16 @@ namespace ASY.Hrefs.BLL.Service
             return reply.Result;
         }
 
-        public IEnumerable<Link> ListLinkByCat(string linktype)
+        public IEnumerable<Link> ListLinkByCat(string catid)
         {
-            var result = _client.ListLinkByCat(new GlobalRequest { Linktype = linktype ?? "" });
+            var result = _client.ListLinkByCat(new GlobalRequest { Catid = catid ?? "" });
             var list = result.Items.Select(p => _mapper.Map<Link>(p));
             return list;
         }
 
-        public IEnumerable<Link> PagerLinkList(int size, int offset, string linktype, string title, string url, out int total)
+        public IEnumerable<Link> PagerLinkList(int size, int offset, string catid, string title, string url, out int total)
         {
-            var result = _client.PagerLinkList(new GlobalRequest { Size = size, Offset = offset, Linktype = linktype ?? "", Title = title ?? "", Url = url ?? "" });
+            var result = _client.PagerLinkList(new GlobalRequest { Size = size, Offset = offset, Catid = catid ?? "", Title = title ?? "", Url = url ?? "" });
             var list = result.Items.Select(p => _mapper.Map<Link>(p));
             total = result.Total;
             return list;

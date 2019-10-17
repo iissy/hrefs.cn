@@ -92,10 +92,10 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("link/list/{size}/{pageno}")]
-        public JsonResult List(int size, int pageno, string linktype, string title, string url)
+        public JsonResult List(int size, int pageno, string catid, string title, string url)
         {
             int total;
-            var list = _linkService.PagerLinkList(size, (pageno - 1) * size, linktype, title, url, out total);
+            var list = _linkService.PagerLinkList(size, (pageno - 1) * size, catid, title, url, out total);
             return Json(new { total, list });
         }
 
