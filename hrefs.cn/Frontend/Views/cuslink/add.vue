@@ -1,6 +1,6 @@
 <template>
     <div style="position: relative;">
-        <Menu tagIndex="2"></Menu>
+        <Menu tagIndex="6"></Menu>
         <div class="rightMain">
             <div style="padding:0 0 0 0;height:60px;margin-bottom:20px;">
                 <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
@@ -37,24 +37,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-1 control-label">小图标</label>
-                                                <div class="col-md-11">
-                                                    <div id="imgfileinput" data-provides="fileinput" class="fileinput fileinput-new right">
-                                                        <span class="btn green btn-file">
-                                                            <span class="fileinput-new"> 选择小图标 </span>
-                                                            <input type="file" id="file" @change="change" name="image" />
-                                                        </span>
-                                                    </div>
-                                                    <input type="text" v-model="Icon" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-1 control-label">导航简介</label>
-                                                <div class="col-md-11">
-                                                    <vue-html5-editor :content="Brief" :height="528" :auto-height="false" :show-module-name="showModuleName" @change="updateData" ref="editor"></vue-html5-editor>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="col-md-1 control-label"></label>
                                                 <div class="col-md-11">
                                                     <button style="color:#ffffff;padding:5px 50px 5px 50px;background-color: #36c6d3;font-size:16px;border-radius:10px;border: 1px solid #2bb8c4;float:right;" type="button" v-on:click="post">发 布</button>
@@ -74,21 +56,8 @@
 
 <script>
     import Menu from '../../components/menu';
-    import Vue from 'vue';
-    import VueHtml5Editor from 'vue-html5-editor';
     import router from '../../router';
     import httper from '../../util/httper';
-    import '../../util/upload';
-
-    Vue.use(VueHtml5Editor, {
-        showModuleName: true,
-        image: {
-            sizeLimit: 512 * 1024,
-            upload: {
-                url: '/upload'
-            }
-        }
-    });
 
     export default {
         data: function () {
@@ -97,8 +66,6 @@
                 LinkType: '',
                 Url: '',
                 Title: '',
-                Brief: '',
-                Icon: '',
                 Id: '',
                 showModuleName: false
             };
@@ -110,12 +77,10 @@
             var self = this;
             self.loadCat();
             if (self.$route.params.id) {
-                var url = '/link/get/' + self.$route.params.id;
+                var url = '/cuslink/get/' + self.$route.params.id;
                 httper.get(url).then(function (response) {
                     self.Id = response.data.id;
                     self.Title = response.data.title;
-                    self.Icon = response.data.icon;
-                    self.Brief = response.data.brief;
                     self.Url = response.data.url;
                     self.LinkType = response.data.catid;
                 }).catch(function (error) {
@@ -124,21 +89,6 @@
             }
         },
         methods: {
-            updateData: function (data) {
-                this.Brief = data;
-            },
-            fullScreen: function () {
-                this.$refs.editor.enableFullScreen();
-            },
-            focus: function () {
-                this.$refs.editor.focus();
-            },
-            change: function () {
-                var self = this;
-                $("#file").upload('/upload', function (response) {
-                    self.Icon = response.data;
-                });
-            },
             loadCat: function () {
                 var self = this;
                 httper.get('/link/cat/list').then(function (response) {
@@ -149,17 +99,15 @@
             },
             post: function () {
                 var self = this;
-                if (!!$.trim(self.Brief) && !!$.trim(self.Title) && !!$.trim(self.Url) && !!$.trim(self.LinkType)) {
-                    httper.post('/link/save', {
+                if (!!$.trim(self.Title) && !!$.trim(self.Url) && !!$.trim(self.LinkType)) {
+                    httper.post('/cuslink/save', {
                         Id: self.Id,
                         Catid: self.LinkType,
                         Title: self.Title,
-                        Icon: self.Icon,
-                        Brief: self.Brief,
                         Url: self.Url
                     }).then(function (response) {
                         if (response.data.result === 1) {
-                            router.push({ name: 'LinkList', params: { size: 15, pageno: 1 } });
+                            router.push({ name: 'CusLinkList', params: { size: 15, pageno: 1 } });
                         }
                     }).catch(function (error) {
                         console.log(error);

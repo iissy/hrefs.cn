@@ -14,5 +14,6 @@ namespace ASY.Hrefs.DAL.IRepository
         Link GetLink(string id, string fields = "*");
         IEnumerable<Link> PagerLinkList(int size, int offset, string catid, string title, string url, out int total);
         IEnumerable<LinkCat> LinkCatList();
+        LinkCat GetLinkCat(string id);
     }
 }

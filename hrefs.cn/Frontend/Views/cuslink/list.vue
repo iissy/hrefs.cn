@@ -1,6 +1,6 @@
 <template>
     <div style="position: relative;">
-        <Menu tagIndex="6"></Menu>
+        <Menu tagIndex="7"></Menu>
         <div class="rightMain">
             <div style="padding:0 0 0 0;height:60px;margin-bottom:20px;">
                 <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
@@ -37,7 +37,6 @@
                                             <th width="200">标题</th>
                                             <th>地址</th>
                                             <th width="100">状态</th>
-                                            <th width="100">理由</th>
                                             <th width="150">添加时间</th>
                                             <th width="150">更新时间</th>
                                             <th width="80">操作</th>
@@ -48,25 +47,11 @@
                                             <td>{{site.id}}</td>
                                             <td>{{site.title}}</td>
                                             <td>{{site.url}}</td>
-                                            <td align="center">
-                                                <select name="public-choice" class="inputclass" v-model="site.status" @change="getStatusSelected(site)">
-                                                    <option value="申请">申请</option>
-                                                    <option value="拒绝">拒绝</option>
-                                                    <option value="通过">通过</option>
-                                                </select>
-                                            </td>
-                                            <td align="center">
-                                                <select name="public-choice" class="inputclass" v-model="site.reason" @change="getReasonSelected(site)">
-                                                    <option value="已经有了">已经有了</option>
-                                                    <option value="违反监管要求">违反监管要求</option>
-                                                    <option value="与科技无关">与科技无关</option>
-                                                    <option value="暂无发现大价值">暂无发现大价值</option>
-                                                </select>
-                                            </td>
+                                            <td>{{site.status}}</td>
                                             <td>{{site.adddate | formatDate}}</td>
                                             <td>{{site.updatedate | formatDate}}</td>
                                             <td align="center">
-                                                <a v-on:click="dellink(site.id)" class="btn btn-sm btn-outline filter-submit dark" style="margin-right:0;">
+                                                <a v-on:click="delcuslink(site.id)" class="btn btn-sm btn-outline filter-submit dark" style="margin-right:0;">
                                                     <i class="fa fa-lock"></i> 删除
                                                 </a>
                                             </td>
@@ -135,7 +120,7 @@
                     console.log(error);
                 });
             },
-            dellink: function (id) {
+            delcuslink: function (id) {
                 var self = this;
                 if (confirm("确认要删除？")) {
                     httper.get('/cuslink/delete/' + id).then(function (response) {
@@ -156,19 +141,6 @@
                 httper.post('/cuslink/status/update', {
                     Id: site.id,
                     Status: site.status
-                }).then(function (response) {
-                    if (response.data.result === 1) {
-                        router.push({ name: 'CusLinkList', params: { size: self.display, pageno: self.current } });
-                    }
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            getReasonSelected: function (site) {
-                var self = this;
-                httper.post('/cuslink/reason/update', {
-                    Id: site.id,
-                    Reason: site.reason
                 }).then(function (response) {
                     if (response.data.result === 1) {
                         router.push({ name: 'CusLinkList', params: { size: self.display, pageno: self.current } });

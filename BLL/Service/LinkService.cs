@@ -40,6 +40,12 @@ namespace ASY.Hrefs.BLL.Service
             return _mapper.Map<Link>(result);
         }
 
+        public LinkCat GetLinkCat(string id)
+        {
+            var result = _client.GetLinkCat(new GlobalRequest { Id = id });
+            return _mapper.Map<LinkCat>(result);
+        }
+
         public IEnumerable<LinkCat> LinkCatList()
         {
             var result = _client.LinkCatList(new Empty());

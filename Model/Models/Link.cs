@@ -7,6 +7,7 @@ namespace ASY.Hrefs.Model.Models
         public string Id { get; set; }
         public string Title { get; set; }
         public string Icon { get; set; }
+        public string Catid { get; set; }
         public string LinkType { get; set; }
         public string Visited { get; set; }
         public string Brief { get; set; }

@@ -89,8 +89,17 @@ namespace hrefs.cn.Controllers
         [Route("link/save")]
         public JsonResult SaveLink(Link link)
         {
-            int result = _linkService.SaveLink(link);
-            return Json(new { result });
+            var linkCat = _linkService.GetLinkCat(link.Catid);
+            if(linkCat == null)
+            {
+                return Json(new { result = 0 });
+            }
+            else
+            {
+                link.LinkType = linkCat.Catname;
+                int result = _linkService.SaveLink(link);
+                return Json(new { result });
+            }
         }
 
         [Route("link/list/{size}/{pageno}")]

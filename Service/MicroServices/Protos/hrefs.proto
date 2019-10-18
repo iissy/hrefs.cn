@@ -13,7 +13,9 @@ service Hrefs {
 	rpc PagerLinkList (GlobalRequest) returns (LinkPagerResponse);
 	rpc SaveLink (LinkProto) returns (GlobalResponse);
 	rpc DeleteLink (GlobalRequest) returns (GlobalResponse);
+
 	rpc LinkCatList (Empty) returns (LinkCatListResponse);
+	rpc GetLinkCat (GlobalRequest) returns (LinkCatProto);
 
 	rpc GetCusLink (GlobalRequest) returns (CusLinkProto);
 	rpc PagerCusLinkList (GlobalRequest) returns (CusLinkPagerResponse);
@@ -73,10 +75,11 @@ message LinkProto {
 	string Title = 2;
 	string Icon = 3;
 	string LinkType = 4;
-	string Visited = 5;
-	string Brief = 6;
-	string Url = 7;
-	string CreateTime = 8;
+	string Catid = 5;
+	string Visited = 6;
+	string Brief = 7;
+	string Url = 8;
+	string CreateTime = 9;
 }
 
 message LinkCatProto {
@@ -89,10 +92,11 @@ message CusLinkProto {
 	string Title = 2;
 	string Url = 3;
 	int32 Status = 4;
-	string Catid = 5;
-	string PCatid = 6;
-	string Adddate = 7;
-	string Updatedate = 8;
+	string LinkType = 5;
+	string Catid = 6;
+	string PCatid = 7;
+	string Adddate = 8;
+	string Updatedate = 9;
 }
 
 message AccountProto {

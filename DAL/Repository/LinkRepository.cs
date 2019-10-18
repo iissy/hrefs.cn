@@ -117,6 +117,7 @@ namespace ASY.Hrefs.DAL.Repository
                         "title=@Title," +
                         "url=@Url," +
                         "icon=@Icon," +
+                        "catid=@Catid," +
                         "linktype=@LinkType," +
                         "brief=@Brief where id=@Id", link);
                 }
@@ -152,6 +153,18 @@ namespace ASY.Hrefs.DAL.Repository
             }
 
             return list;
+        }
+
+        public LinkCat GetLinkCat(string id)
+        {
+            var linkCat = new LinkCat();
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                string sql = string.Format("SELECT * FROM linkcat WHERE Id = @Id");
+                linkCat = conn.QueryFirstOrDefault<LinkCat>(sql, new { Id = id });
+            }
+
+            return linkCat;
         }
     }
 }

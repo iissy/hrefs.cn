@@ -89,7 +89,7 @@ namespace ASY.Hrefs.DAL.Repository
             int result = 0;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
-                result = conn.Execute("delete from cusLink where Id = @Id", new { Id = id });
+                result = conn.Execute("delete from cuslink where Id = @Id", new { Id = id });
             }
 
             return result;

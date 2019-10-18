@@ -8,6 +8,7 @@ import LinkList from '../views/link/list';
 import ArticleAdd from '../views/article/add';
 import ArticleList from '../views/article/list';
 import AccountList from '../views/account/list';
+import CusLinkAdd from '../views/cuslink/add';
 import CusLinkList from '../views/cuslink/list';
 
 Vue.use(Router);
@@ -56,8 +57,13 @@ const routes = [
         name: 'AccountList',
         component: AccountList
     }, {
+        path: '/main/cuslink/add',
+        meta: { title: "提交网摘" },
+        name: 'CusLinkAdd',
+        component: CusLinkAdd
+    }, {
         path: '/main/cuslink/:size/:pageno',
-        meta: { title: "用户提交" },
+        meta: { title: "网摘管理" },
         name: 'CusLinkList',
         component: CusLinkList
     }
