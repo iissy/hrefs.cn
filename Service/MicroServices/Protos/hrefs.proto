@@ -13,6 +13,7 @@ service Hrefs {
 	rpc PagerLinkList (GlobalRequest) returns (LinkPagerResponse);
 	rpc SaveLink (LinkProto) returns (GlobalResponse);
 	rpc DeleteLink (GlobalRequest) returns (GlobalResponse);
+	rpc LinkCatList (Empty) returns (LinkCatListResponse);
 
 	rpc ListArticleByPaging (GlobalRequest) returns (ArticleListResponse);
 	rpc GetArticle (GlobalRequest) returns (ArticleProto);
@@ -72,6 +73,11 @@ message LinkProto {
 	string CreateTime = 8;
 }
 
+message LinkCatProto {
+	string Id = 1;
+	string Catname = 2;
+}
+
 message AccountProto {
 	int32 Id = 1;
 	string UserId = 2;
@@ -84,6 +90,10 @@ message AccountProto {
 
 message LinkListResponse {
 	repeated LinkProto Items = 1;
+}
+
+message LinkCatListResponse {
+	repeated LinkCatProto Items = 1;
 }
 
 message ArticleListResponse {

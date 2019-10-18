@@ -40,6 +40,13 @@ namespace ASY.Hrefs.BLL.Service
             return _mapper.Map<Link>(result);
         }
 
+        public IEnumerable<LinkCat> LinkCatList()
+        {
+            var result = _client.LinkCatList(new Empty());
+            var list = result.Items.Select(p => _mapper.Map<LinkCat>(p));
+            return list;
+        }
+
         public int LinksVisitedCount()
         {
             var reply = _client.LinksVisitedCount(new Empty());

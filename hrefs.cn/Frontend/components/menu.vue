@@ -14,6 +14,7 @@
             <li><span></span></li>
             <li :class="{active: (currentIndex == 2)}"><router-link to="/main/link/add">添加导航</router-link></li>
             <li :class="{active: (currentIndex == 3)}"><router-link to="/main/link/14/1">导航管理</router-link></li>
+            <li :class="{active: (currentIndex == 6)}"><router-link to="/main/cuslink/14/1">用户提交</router-link></li>
             <li><span></span></li>
             <li :class="{active: (currentIndex == 4)}"><router-link to="/main/article/add">添加文章</router-link></li>
             <li :class="{active: (currentIndex == 5)}"><router-link to="/main/article/14/1">文章管理</router-link></li>

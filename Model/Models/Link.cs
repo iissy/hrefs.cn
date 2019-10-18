@@ -13,4 +13,10 @@ namespace ASY.Hrefs.Model.Models
         public string Url { get; set; }
         public DateTime CreateTime { get; set; }
     }
+
+    public class LinkCat
+    {
+        public string Id { get; set; }
+        public string Catname { get; set; }
+    }
 }

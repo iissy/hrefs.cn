@@ -64,6 +64,18 @@ namespace MicroServices
             return Task.FromResult(response);
         }
 
+        public override Task<LinkCatListResponse> LinkCatList(Empty request, ServerCallContext context)
+        {
+            var result = _linkRepository.LinkCatList();
+            LinkCatListResponse response = new LinkCatListResponse();
+            foreach (var item in result)
+            {
+                response.Items.Add(_mapper.Map<LinkCatProto>(item));
+            }
+
+            return Task.FromResult(response);
+        }
+
         public override Task<ArticleProto> GetArticle(GlobalRequest request, ServerCallContext context)
         {
             var result = _articleRepository.GetArticle(request.Id, request.Fields);

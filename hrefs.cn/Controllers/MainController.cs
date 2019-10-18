@@ -99,6 +99,13 @@ namespace hrefs.cn.Controllers
             return Json(new { total, list });
         }
 
+        [Route("link/cat/list")]
+        public JsonResult LinkCatList()
+        {
+            var list = _linkService.LinkCatList();
+            return Json(list);
+        }
+
         [Route("link/get/{id}")]
         public JsonResult GetLink(string id)
         {

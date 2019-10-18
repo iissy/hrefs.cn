@@ -12,40 +12,10 @@
                             <label class="col-md-3 control-label">类型：</label>
                             <div class="col-md-9">
                                 <select v-model="LinkType" class="inputclass">
-                                    <optgroup label="热门">
-                                        <option value="公共">公共</option>
-                                        <option value="资讯">资讯</option>
-                                        <option value="实用工具">实用工具</option>
-                                        <option value="区块链">区块链</option>
-                                        <option value="大数据">大数据</option>
-                                        <option value="人工智能">人工智能</option>
-                                        <option value="架构师">架构师</option>
-                                        <option value="教程">教程</option>
-                                        <option value="数据库">数据库</option>
-                                        <option value="运维工具">运维工具</option>
-                                        <option value="软件">软件</option>
-                                        <option value="协同工具">协同工具</option>
-                                    </optgroup>
-                                    <optgroup label="后端">
-                                        <option value="DotNet">DotNet</option>
-                                        <option value="Golang">Golang</option>
-                                        <option value="NodeJS">NodeJS</option>
-                                        <option value="Python">Python</option>
-                                        <option value="Java">Java</option>
-                                        <option value="PHP">PHP</option>
-                                        <option value="C/C++">C/C++</option>
-                                        <option value="Ruby">Ruby</option>
-                                        <option value="其他">其他</option>
-                                    </optgroup>
-                                    <optgroup label="前端">
-                                        <option value="CSS">CSS</option>
-                                        <option value="JQuery">JQuery</option>
-                                        <option value="Charts">Charts</option>
-                                        <option value="Vue">Vue</option>
-                                        <option value="富文本编辑器">富文本编辑器</option>
-                                        <option value="前端框架">前端框架</option>
-                                        <option value="打包构建">打包构建</option>
-                                    </optgroup>
+                                    <option value=""></option>
+                                    <option v-for="opt in options" :value="opt.id" :key="opt.id">
+                                        {{opt.catname}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -122,6 +92,7 @@
     export default {
         data: function () {
             return {
+                options: [],
                 sites: [],
                 total: 5,
                 display: 15,
@@ -140,6 +111,7 @@
             self.current = parseInt(self.$route.params.pageno);
             self.display = parseInt(self.$route.params.size);
             self.load();
+            self.loadCat();
         },
         filters: {
             formatDate(time) {
@@ -156,12 +128,20 @@
             load: function () {
                 var self = this;
                 httper.post('/link/list/' + self.display + '/' + self.current, {
-                    linktype: self.LinkType,
+                    catid: self.LinkType,
                     title: self.Title,
                     url: self.Url
                 }).then(function (response) {
                     self.sites = response.data.list;
                     self.total = response.data.total;
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            loadCat: function () {
+                var self = this;
+                httper.get('/link/cat/list').then(function (response) {
+                    self.options = response.data;
                 }).catch(function (error) {
                     console.log(error);
                 });

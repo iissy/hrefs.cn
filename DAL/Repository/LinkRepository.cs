@@ -141,5 +141,17 @@ namespace ASY.Hrefs.DAL.Repository
 
             return result;
         }
+
+        public IEnumerable<LinkCat> LinkCatList()
+        {
+            IEnumerable<LinkCat> list;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                string sql = string.Format($"SELECT id,catname FROM linkcat ORDER BY id desc");
+                list = conn.Query<LinkCat>(sql);
+            }
+
+            return list;
+        }
     }
 }
