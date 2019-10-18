@@ -15,6 +15,12 @@ service Hrefs {
 	rpc DeleteLink (GlobalRequest) returns (GlobalResponse);
 	rpc LinkCatList (Empty) returns (LinkCatListResponse);
 
+	rpc GetCusLink (GlobalRequest) returns (CusLinkProto);
+	rpc PagerCusLinkList (GlobalRequest) returns (CusLinkPagerResponse);
+	rpc SaveCusLink (CusLinkProto) returns (GlobalResponse);
+	rpc DeleteCusLink (GlobalRequest) returns (GlobalResponse);
+	rpc GetTopCusLink (GlobalRequest) returns (TopCusLinkResponse);
+	
 	rpc ListArticleByPaging (GlobalRequest) returns (ArticleListResponse);
 	rpc GetArticle (GlobalRequest) returns (ArticleProto);
 	rpc PagerArticleList (GlobalRequest) returns (ArticlePagerResponse);
@@ -78,6 +84,17 @@ message LinkCatProto {
 	string Catname = 2;
 }
 
+message CusLinkProto {
+	string Id = 1;
+	string Title = 2;
+	string Url = 3;
+	int32 Status = 4;
+	string Catid = 5;
+	string PCatid = 6;
+	string Adddate = 7;
+	string Updatedate = 8;
+}
+
 message AccountProto {
 	int32 Id = 1;
 	string UserId = 2;
@@ -103,6 +120,15 @@ message ArticleListResponse {
 message LinkPagerResponse {
 	int32 Total = 1;
 	repeated LinkProto Items = 2;
+}
+
+message TopCusLinkResponse {
+	repeated CusLinkProto Items = 1;
+}
+
+message CusLinkPagerResponse {
+	int32 Total = 1;
+	repeated CusLinkProto Items = 2;
 }
 
 message ArticlePagerResponse {

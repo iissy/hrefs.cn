@@ -23,11 +23,13 @@ namespace hrefs.cn.Controllers
         private IArticleService _articleService;
         private ILinkService _linkService;
         private IAccountService _accountService;
-        public MainController(ILogger<HomeController> logger, IWebHostEnvironment env, IArticleService articleService, ILinkService linkService, IAccountService accountService)
+        private ICusLinkService _cusLinkService;
+        public MainController(ILogger<HomeController> logger, IWebHostEnvironment env, IArticleService articleService, ILinkService linkService, IAccountService accountService, ICusLinkService cusLinkService)
         {
             _articleService = articleService;
             _linkService = linkService;
             _accountService = accountService;
+            _cusLinkService = cusLinkService;
             _logger = logger;
             _env = env;
         }
@@ -92,7 +94,7 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("link/list/{size}/{pageno}")]
-        public JsonResult List(int size, int pageno, string catid, string title, string url)
+        public JsonResult PagerLinkList(int size, int pageno, string catid, string title, string url)
         {
             int total;
             var list = _linkService.PagerLinkList(size, (pageno - 1) * size, catid, title, url, out total);
@@ -168,6 +170,43 @@ namespace hrefs.cn.Controllers
 
                 return Json(new { status = uploader.Status, url = uploader.FileUrl, path = uploader.FilePath, ok = uploader.Status, data = uploader.FileUrl, msg = uploader.Message });
             }
+        }
+
+        [HttpPost]
+        [Route("cuslink/save")]
+        public JsonResult SaveCusLink(CusLink cusLink)
+        {
+            int result = _cusLinkService.SaveCusLink(cusLink);
+            return Json(new { result });
+        }
+
+        [Route("cuslink/list/{size}/{pageno}")]
+        public JsonResult PagerCusLinkList(int size, int pageno, string pcatid, string title, string url)
+        {
+            int total;
+            var list = _cusLinkService.PagerCusLinkList(size, (pageno - 1) * size, pcatid, title, url, out total);
+            return Json(new { total, list });
+        }
+
+        [Route("cuslink/get/{id}")]
+        public JsonResult GetCusLink(string id)
+        {
+            var result = _cusLinkService.GetCusLink(id);
+            return Json(result);
+        }
+
+        [Route("cuslink/delete/{id}")]
+        public JsonResult DeleteCusLink(string id)
+        {
+            int result = _cusLinkService.DeleteCusLink(id);
+            return Json(new { result });
+        }
+
+        [Route("cuslink/top")]
+        public JsonResult GetTopCusLink(int size)
+        {
+            var list = _cusLinkService.GetTopCusLink(size, "*");
+            return Json(list);
         }
     }
 }

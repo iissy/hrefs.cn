@@ -28,6 +28,7 @@ namespace MicroServices
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.AddTransient<IArticleRepository, ArticleRepository>();
             services.AddTransient<ILinkRepository, LinkRepository>();
+            services.AddTransient<ICusLinkRepository, CusLinkRepository>();
             services.AddTransient<IAccountRepository, AccountRepository>();
         }
 

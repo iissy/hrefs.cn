@@ -17,40 +17,10 @@
                                                 <label class="col-md-1 control-label">类型</label>
                                                 <div class="col-md-11">
                                                     <select v-model="LinkType" class="form-control">
-                                                        <optgroup label="热门">
-                                                            <option value="公共">公共</option>
-                                                            <option value="资讯">资讯</option>
-                                                            <option value="实用工具">实用工具</option>
-                                                            <option value="区块链">区块链</option>
-                                                            <option value="大数据">大数据</option>
-                                                            <option value="人工智能">人工智能</option>
-                                                            <option value="架构师">架构师</option>
-                                                            <option value="教程">教程</option>
-                                                            <option value="数据库">数据库</option>
-                                                            <option value="运维工具">运维工具</option>
-                                                            <option value="软件">软件</option>
-                                                            <option value="协同工具">协同工具</option>
-                                                        </optgroup>
-                                                        <optgroup label="后端">
-                                                            <option value="DotNet">DotNet</option>
-                                                            <option value="Golang">Golang</option>
-                                                            <option value="NodeJS">NodeJS</option>
-                                                            <option value="Python">Python</option>
-                                                            <option value="Java">Java</option>
-                                                            <option value="PHP">PHP</option>
-                                                            <option value="C/C++">C/C++</option>
-                                                            <option value="Ruby">Ruby</option>
-                                                            <option value="其他">其他</option>
-                                                        </optgroup>
-                                                        <optgroup label="前端">
-                                                            <option value="CSS">CSS</option>
-                                                            <option value="JQuery">JQuery</option>
-                                                            <option value="Charts">Charts</option>
-                                                            <option value="Vue">Vue</option>
-                                                            <option value="富文本编辑器">富文本编辑器</option>
-                                                            <option value="前端框架">前端框架</option>
-                                                            <option value="打包构建">打包构建</option>
-                                                        </optgroup>
+                                                        <option value=""></option>
+                                                        <option v-for="opt in options" :value="opt.id" :key="opt.id">
+                                                            {{opt.catname}}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -123,6 +93,7 @@
     export default {
         data: function () {
             return {
+                options: [],
                 LinkType: '',
                 Url: '',
                 Title: '',
@@ -137,19 +108,20 @@
         },
         created: function () {
             var self = this;
-            if (self.$route.params.id) {
-                var url = '/link/get/' + self.$route.params.id;
-                httper.get(url).then(function (response) {
-                    self.Id = response.data.id;
-                    self.Title = response.data.title;
-                    self.Icon = response.data.icon;
-                    self.Brief = response.data.brief;
-                    self.Url = response.data.url;
-                    self.LinkType = response.data.linkType;
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            }
+            self.loadCat();
+            //if (self.$route.params.id) {
+            //    var url = '/link/get/' + self.$route.params.id;
+            //    httper.get(url).then(function (response) {
+            //        self.Id = response.data.id;
+            //        self.Title = response.data.title;
+            //        self.Icon = response.data.icon;
+            //        self.Brief = response.data.brief;
+            //        self.Url = response.data.url;
+            //        self.LinkType = response.data.catid;
+            //    }).catch(function (error) {
+            //        console.log(error);
+            //    });
+            //}
         },
         methods: {
             updateData: function (data) {
@@ -165,6 +137,27 @@
                 var self = this;
                 $("#file").upload('/upload', function (response) {
                     self.Icon = response.data;
+                });
+            },
+            loadCat: function () {
+                var self = this;
+                httper.get('/link/cat/list').then(function (response) {
+                    self.options = response.data;
+                    if (self.$route.params.id) {
+                        var url = '/link/get/' + self.$route.params.id;
+                        httper.get(url).then(function (response) {
+                            self.Id = response.data.id;
+                            self.Title = response.data.title;
+                            self.Icon = response.data.icon;
+                            self.Brief = response.data.brief;
+                            self.Url = response.data.url;
+                            self.LinkType = response.data.catid;
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }
+                }).catch(function (error) {
+                    console.log(error);
                 });
             },
             post: function () {

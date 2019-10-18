@@ -13,13 +13,15 @@ namespace MicroServices
         private IArticleRepository _articleRepository;
         private ILinkRepository _linkRepository;
         private IAccountRepository _accountRepository;
+        private ICusLinkRepository _cusLinkRepository;
         private readonly ILogger<HrefsService> _logger;
         private IMapper _mapper;
-        public HrefsService(ILogger<HrefsService> logger, IArticleRepository articleRepository, ILinkRepository linkRepository, IAccountRepository accountRepository)
+        public HrefsService(ILogger<HrefsService> logger, IArticleRepository articleRepository, ILinkRepository linkRepository, IAccountRepository accountRepository, ICusLinkRepository cusLinkRepository)
         {
             _articleRepository = articleRepository;
             _linkRepository = linkRepository;
             _accountRepository = accountRepository;
+            _cusLinkRepository = cusLinkRepository;
             _logger = logger;
 
             var configuration = Mapping.GetMapperConfiguration();
@@ -182,6 +184,48 @@ namespace MicroServices
         {
             var result = _accountRepository.GetLogin(request.Id, request.Password, request.Fields);
             var response = _mapper.Map<AccountProto>(result);
+            return Task.FromResult(response);
+        }
+
+        public override Task<CusLinkProto> GetCusLink(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _cusLinkRepository.GetCusLink(request.Id, request.Fields);
+            var response = _mapper.Map<CusLinkProto>(result);
+            return Task.FromResult(response);
+        }
+
+        public override Task<CusLinkPagerResponse> PagerCusLinkList(GlobalRequest request, ServerCallContext context)
+        {
+            var total = 0;
+            var result = _cusLinkRepository.PagerCusLinkList(request.Size, request.Offset, request.Catid, request.Title, request.Url, out total);
+            var response = new CusLinkPagerResponse();
+            response.Total = total;
+            response.Items.AddRange(result.Select(p => _mapper.Map<CusLinkProto>(p)));
+            return Task.FromResult(response);
+        }
+
+        public override Task<GlobalResponse> SaveCusLink(CusLinkProto request, ServerCallContext context)
+        {
+            var item = _mapper.Map<CusLink>(request);
+            var result = _cusLinkRepository.SaveCusLink(item);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
+        public override Task<GlobalResponse> DeleteCusLink(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _cusLinkRepository.DeleteCusLink(request.Id);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
+
+        public override Task<TopCusLinkResponse> GetTopCusLink(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _cusLinkRepository.GetTopCusLink(request.Size, request.Fields);
+            var response = new TopCusLinkResponse();
+            foreach (var item in result)
+            {
+                response.Items.Add(_mapper.Map<CusLinkProto>(item));
+            }
+
             return Task.FromResult(response);
         }
     }
