@@ -29,9 +29,9 @@
             @await Html.PartialAsync("_common", common)
             @await Html.PartialAsync("_info", info)
             <div id="article" style="margin-top:10px;">
-                <div style="max-width:1300px;padding-left:30px;" class="container">
+                <div style="max-width:1300px;padding:10px 20px 10px 30px;" class="container">
                     <div class="row">
-                        @await Component.InvokeAsync("CusLink", new { size = 12 })
+                        @await Component.InvokeAsync("CusLink", new { size = 15 })
                         @await Component.InvokeAsync("Article", new { size = 3, skip = 0 })
                     </div>
                 </div>
