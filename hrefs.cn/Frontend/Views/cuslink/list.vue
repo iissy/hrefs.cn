@@ -34,9 +34,10 @@
                                     <thead>
                                         <tr>
                                             <th width="80">编号</th>
-                                            <th width="200">标题</th>
+                                            <th width="350">标题</th>
                                             <th>地址</th>
-                                            <th width="100">状态</th>
+                                            <th width="100">类型</th>
+                                            <th width="80">状态</th>
                                             <th width="150">添加时间</th>
                                             <th width="150">更新时间</th>
                                             <th width="80">操作</th>
@@ -47,6 +48,7 @@
                                             <td>{{site.id}}</td>
                                             <td>{{site.title}}</td>
                                             <td>{{site.url}}</td>
+                                            <td align="center">{{site.linkType}}</td>
                                             <td>{{site.status}}</td>
                                             <td>{{site.adddate | formatDate}}</td>
                                             <td>{{site.updatedate | formatDate}}</td>

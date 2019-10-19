@@ -71,13 +71,14 @@ namespace ASY.Hrefs.DAL.Repository
                         "url=@Url," +
                         "catid=@Catid," +
                         "pcatid=@PCatid," +
+                        "linktype=@LinkType," +
                         "updatedate=@Updatedate where id=@Id", cusLink);
                 }
                 else
                 {
                     cusLink.Adddate = DateTime.Now;
-                    result = conn.Execute("INSERT INTO cuslink(title,url,status,catid,pcatid,adddate)" +
-                        "values(@Title,@Url,@Status,@Catid,@PCatid,@Adddate)", cusLink);
+                    result = conn.Execute("INSERT INTO cuslink(title,url,status,catid,pcatid,linktype,adddate)" +
+                        "values(@Title,@Url,@Status,@Catid,@PCatid,@LinkType,@Adddate)", cusLink);
                 }
             }
 

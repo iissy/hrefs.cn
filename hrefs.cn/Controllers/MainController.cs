@@ -185,8 +185,17 @@ namespace hrefs.cn.Controllers
         [Route("cuslink/save")]
         public JsonResult SaveCusLink(CusLink cusLink)
         {
-            int result = _cusLinkService.SaveCusLink(cusLink);
-            return Json(new { result });
+            var linkCat = _linkService.GetLinkCat(cusLink.Catid);
+            if (linkCat == null)
+            {
+                return Json(new { result = 0 });
+            }
+            else
+            {
+                cusLink.LinkType = linkCat.Catname;
+                int result = _cusLinkService.SaveCusLink(cusLink);
+                return Json(new { result });
+            }            
         }
 
         [Route("cuslink/list/{size}/{pageno}")]
