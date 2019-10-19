@@ -1,0 +1,8 @@
+﻿@model IEnumerable<CusLink>
+@foreach (var item in Model)
+{
+    <div class="site-item col-4" style="padding-left:10px;">
+        <div style="float:left;"><img src="/new.png" style="height:20px;margin-right:10px;" /><a href="@item.Url" target="_blank" style="color:#13227a;">@Html.Raw(item.Title)</a></div>
+        <div style="float:right;padding-right:20px;">[@Html.Raw(item.LinkType)]</div>
+    </div>
+}

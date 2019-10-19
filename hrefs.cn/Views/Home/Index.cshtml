@@ -28,7 +28,14 @@
         <div style="">
             @await Html.PartialAsync("_common", common)
             @await Html.PartialAsync("_info", info)
-            @await Component.InvokeAsync("Article", new { size = 15, skip = 0 })
+            <div id="article" style="margin-top:10px;">
+                <div style="max-width:1300px;padding-left:30px;" class="container">
+                    <div class="row">
+                        @await Component.InvokeAsync("CusLink", new { size = 12 })
+                        @await Component.InvokeAsync("Article", new { size = 3, skip = 0 })
+                    </div>
+                </div>
+            </div>
             <div id="other">@await Html.PartialAsync("_group", other)</div>
             <div id="backend">@await Html.PartialAsync("_group", backend)</div>
             <div id="frontend">@await Html.PartialAsync("_group", frontend)</div>

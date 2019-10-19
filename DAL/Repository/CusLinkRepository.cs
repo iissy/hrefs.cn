@@ -29,12 +29,12 @@ namespace ASY.Hrefs.DAL.Repository
             return cusLink;
         }
 
-        public IEnumerable<CusLink> PagerCusLinkList(int size, int offset, string pcatid, string title, string url, out int total)
+        public IEnumerable<CusLink> PagerCusLinkList(int size, int offset, string catid, string title, string url, out int total)
         {
             string sqlwhere = "where 1=1";
-            if (!string.IsNullOrWhiteSpace(pcatid))
+            if (!string.IsNullOrWhiteSpace(catid))
             {
-                sqlwhere += $" and pcatid = @pcatid";
+                sqlwhere += $" and catid = @catid";
             }
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -50,9 +50,9 @@ namespace ASY.Hrefs.DAL.Repository
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
                 string sql = string.Format($"SELECT * FROM cuslink {sqlwhere} ORDER BY adddate desc LIMIT @size OFFSET @offset");
-                list = conn.Query<CusLink>(sql, new { pcatid, size, offset });
+                list = conn.Query<CusLink>(sql, new { catid, size, offset });
 
-                total = conn.QueryFirstOrDefault<int>($"select count(*) from cuslink {sqlwhere}", new { pcatid });
+                total = conn.QueryFirstOrDefault<int>($"select count(*) from cuslink {sqlwhere}", new { catid });
             }
 
             return list;
@@ -70,15 +70,14 @@ namespace ASY.Hrefs.DAL.Repository
                         "title=@Title," +
                         "url=@Url," +
                         "catid=@Catid," +
-                        "pcatid=@PCatid," +
                         "linktype=@LinkType," +
                         "updatedate=@Updatedate where id=@Id", cusLink);
                 }
                 else
                 {
                     cusLink.Adddate = DateTime.Now;
-                    result = conn.Execute("INSERT INTO cuslink(title,url,status,catid,pcatid,linktype,adddate)" +
-                        "values(@Title,@Url,@Status,@Catid,@PCatid,@LinkType,@Adddate)", cusLink);
+                    result = conn.Execute("INSERT INTO cuslink(title,url,status,catid,linktype,adddate)" +
+                        "values(@Title,@Url,@Status,@Catid,@LinkType,@Adddate)", cusLink);
                 }
             }
 

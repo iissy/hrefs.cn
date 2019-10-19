@@ -10,7 +10,6 @@ namespace ASY.Hrefs.Model.Models
         public int Status { get; set; }
         public string LinkType { get; set; }
         public string Catid { get; set; }
-        public string PCatid { get; set; }
         public DateTime Adddate { get; set; }
         public DateTime? Updatedate { get; set; }
     }

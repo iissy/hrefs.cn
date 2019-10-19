@@ -94,9 +94,8 @@ message CusLinkProto {
 	int32 Status = 4;
 	string LinkType = 5;
 	string Catid = 6;
-	string PCatid = 7;
-	string Adddate = 8;
-	string Updatedate = 9;
+	string Adddate = 7;
+	string Updatedate = 8;
 }
 
 message AccountProto {

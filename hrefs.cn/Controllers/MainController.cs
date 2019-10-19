@@ -199,10 +199,10 @@ namespace hrefs.cn.Controllers
         }
 
         [Route("cuslink/list/{size}/{pageno}")]
-        public JsonResult PagerCusLinkList(int size, int pageno, string pcatid, string title, string url)
+        public JsonResult PagerCusLinkList(int size, int pageno, string catid, string title, string url)
         {
             int total;
-            var list = _cusLinkService.PagerCusLinkList(size, (pageno - 1) * size, pcatid, title, url, out total);
+            var list = _cusLinkService.PagerCusLinkList(size, (pageno - 1) * size, catid, title, url, out total);
             return Json(new { total, list });
         }
 

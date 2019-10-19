@@ -9,6 +9,17 @@
                 <div class="search form-horizontal" style="padding:10px 20px 0 10px;overflow:auto;">
                     <div class="form-group">
                         <div class="col-md-2">
+                            <label class="col-md-3 control-label">类型：</label>
+                            <div class="col-md-9">
+                                <select v-model="LinkType" class="inputclass">
+                                    <option value=""></option>
+                                    <option v-for="opt in options" :value="opt.id" :key="opt.id">
+                                        {{opt.catname}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <label class="col-md-3 control-label">标题：</label>
                             <div class="col-md-9">
                                 <input type="text" v-model="Title" class="inputclass" />
@@ -80,10 +91,12 @@
     export default {
         data: function () {
             return {
+                options: [],
                 sites: [],
                 total: 5,
                 display: 15,
                 current: 1,
+                LinkType: '',
                 Title: '',
                 Url: ''
             };
@@ -97,6 +110,7 @@
             self.current = parseInt(self.$route.params.pageno);
             self.display = parseInt(self.$route.params.size);
             self.load();
+            self.loadCat();
         },
         filters: {
             formatDate(time) {
@@ -113,11 +127,20 @@
             load: function () {
                 var self = this;
                 httper.post('/cuslink/list/' + self.display + '/' + self.current, {
+                    catid: self.LinkType,
                     title: self.Title,
                     url: self.Url
                 }).then(function (response) {
                     self.sites = response.data.list;
                     self.total = response.data.total;
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            loadCat: function () {
+                var self = this;
+                httper.get('/link/cat/list').then(function (response) {
+                    self.options = response.data;
                 }).catch(function (error) {
                     console.log(error);
                 });
