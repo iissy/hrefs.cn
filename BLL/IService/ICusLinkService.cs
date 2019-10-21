@@ -10,5 +10,6 @@ namespace ASY.Hrefs.BLL.IService
         CusLink GetCusLink(string id, string fields = "*");
         IEnumerable<CusLink> PagerCusLinkList(int size, int offset, string catid, string title, string url, out int total);
         IEnumerable<CusLink> GetTopCusLink(int size, string fields = "*");
+        IEnumerable<CusLink> ListCusLinkByPaging(int size, int skip, string fields = "*");
     }
 }

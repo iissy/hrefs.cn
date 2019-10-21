@@ -12,10 +12,12 @@ namespace hrefs.cn.Controllers
         private readonly ILogger<HomeController> _logger;
         private IArticleService _articleService;
         private ILinkService _linkService;
-        public HomeController(ILogger<HomeController> logger, IArticleService articleService, ILinkService linkService)
+        private ICusLinkService _cusLinkService;
+        public HomeController(ILogger<HomeController> logger, IArticleService articleService, ILinkService linkService, ICusLinkService cusLinkService)
         {
             _articleService = articleService;
             _linkService = linkService;
+            _cusLinkService = cusLinkService;
             _logger = logger;
         }
 
@@ -27,6 +29,16 @@ namespace hrefs.cn.Controllers
             int size = 200;
             int offset = size * (pageno - 1);
             return View(_articleService.ListArticleByPaging(size, offset, "id,title,icon,brief,createTime"));
+        }
+
+        [Route("cuslinks/{pageno:int=1}")]
+        public IActionResult CusLinks(int pageno)
+        {
+            pageno = pageno <= 0 ? 1 : (pageno > 10 ? 10 : pageno);
+            ViewBag.PageNumber = pageno;
+            int size = 200;
+            int offset = size * (pageno - 1);
+            return View(_cusLinkService.ListCusLinkByPaging(size, offset, "id,title,url,linktype"));
         }
 
         [Route("links/{catid}")]

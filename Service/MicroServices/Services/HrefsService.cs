@@ -235,5 +235,17 @@ namespace MicroServices
 
             return Task.FromResult(response);
         }
+
+        public override Task<CusLinkListResponse> ListCusLinkByPaging(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _cusLinkRepository.ListCusLinkByPaging(request.Size, request.Skip, request.Fields);
+            var response = new CusLinkListResponse();
+            foreach (var item in result)
+            {
+                response.Items.Add(_mapper.Map<CusLinkProto>(item));
+            }
+
+            return Task.FromResult(response);
+        }
     }
 }

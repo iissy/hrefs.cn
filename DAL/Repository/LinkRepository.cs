@@ -124,8 +124,8 @@ namespace ASY.Hrefs.DAL.Repository
                 else
                 {
                     link.Id = Guid.NewGuid().ToString();
-                    result = conn.Execute("INSERT INTO link(id,icon,linktype,title,url,brief)" +
-                        "values(@Id,@Icon,@LinkType,@Title,@Url,@Brief)", link);
+                    result = conn.Execute("INSERT INTO link(id,icon,linktype,catid,title,url,brief)" +
+                        "values(@Id,@Icon,@LinkType,@Catid,@Title,@Url,@Brief)", link);
                 }
             }
 

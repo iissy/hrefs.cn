@@ -40,6 +40,13 @@ namespace ASY.Hrefs.BLL.Service
             return list;
         }
 
+        public IEnumerable<CusLink> ListCusLinkByPaging(int size, int skip, string fields = "*")
+        {
+            var result = _client.ListCusLinkByPaging(new GlobalRequest { Size = size, Skip = skip, Fields = fields });
+            var list = result.Items.Select(p => _mapper.Map<CusLink>(p));
+            return list;
+        }
+
         public IEnumerable<CusLink> PagerCusLinkList(int size, int offset, string catid, string title, string url, out int total)
         {
             var result = _client.PagerCusLinkList(new GlobalRequest { Size = size, Offset = offset, Catid = catid ?? "", Title = title ?? "", Url = url ?? "" });

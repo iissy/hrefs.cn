@@ -22,6 +22,7 @@ service Hrefs {
 	rpc SaveCusLink (CusLinkProto) returns (GlobalResponse);
 	rpc DeleteCusLink (GlobalRequest) returns (GlobalResponse);
 	rpc GetTopCusLink (GlobalRequest) returns (TopCusLinkResponse);
+	rpc ListCusLinkByPaging (GlobalRequest) returns (CusLinkListResponse);
 	
 	rpc ListArticleByPaging (GlobalRequest) returns (ArticleListResponse);
 	rpc GetArticle (GlobalRequest) returns (ArticleProto);
@@ -127,6 +128,10 @@ message LinkPagerResponse {
 
 message TopCusLinkResponse {
 	repeated CusLinkProto Items = 1;
+}
+
+message CusLinkListResponse {
+	repeated CusLinkProto Items = 2;
 }
 
 message CusLinkPagerResponse {

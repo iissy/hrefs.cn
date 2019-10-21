@@ -49,7 +49,7 @@ namespace ASY.Hrefs.DAL.Repository
             total = 0;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
-                string sql = string.Format($"SELECT * FROM cuslink {sqlwhere} ORDER BY adddate desc LIMIT @size OFFSET @offset");
+                string sql = string.Format($"SELECT * FROM cuslink {sqlwhere} ORDER BY id desc LIMIT @size OFFSET @offset");
                 list = conn.Query<CusLink>(sql, new { catid, size, offset });
 
                 total = conn.QueryFirstOrDefault<int>($"select count(*) from cuslink {sqlwhere}", new { catid });
@@ -100,8 +100,20 @@ namespace ASY.Hrefs.DAL.Repository
             IEnumerable<CusLink> list;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
-                string sql = string.Format("SELECT {0} FROM cuslink ORDER BY adddate desc LIMIT @size", fields);
+                string sql = string.Format("SELECT {0} FROM cuslink ORDER BY id desc LIMIT @size", fields);
                 list = conn.Query<CusLink>(sql, new { size });
+            }
+
+            return list;
+        }
+
+        public IEnumerable<CusLink> ListCusLinkByPaging(int size, int skip, string fields = "*")
+        {
+            IEnumerable<CusLink> list;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                string sql = string.Format($"SELECT {fields} FROM cuslink ORDER BY id desc LIMIT @PageSize OFFSET @Offset");
+                list = conn.Query<CusLink>(sql, new { PageSize = size, Offset = skip });
             }
 
             return list;
