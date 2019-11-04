@@ -247,5 +247,11 @@ namespace MicroServices
 
             return Task.FromResult(response);
         }
+
+        public override Task<GlobalResponse> UpdatedCusLinkVisited(GlobalRequest request, ServerCallContext context)
+        {
+            var result = _cusLinkRepository.UpdatedCusLinkVisited(request.Id);
+            return Task.FromResult(new GlobalResponse { Result = result });
+        }
     }
 }

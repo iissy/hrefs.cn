@@ -12,5 +12,6 @@ namespace ASY.Hrefs.Model.Models
         public string Catid { get; set; }
         public DateTime Adddate { get; set; }
         public DateTime? Updatedate { get; set; }
+        public string Visited { get; set; }
     }
 }

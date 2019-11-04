@@ -118,5 +118,16 @@ namespace ASY.Hrefs.DAL.Repository
 
             return list;
         }
+
+        public int UpdatedCusLinkVisited(string id)
+        {
+            int result = 0;
+            using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
+            {
+                result = conn.Execute("update cuslink set visited = visited + 1 where Id = @Id", new { Id = id });
+            }
+
+            return result;
+        }
     }
 }

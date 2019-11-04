@@ -61,5 +61,11 @@ namespace ASY.Hrefs.BLL.Service
             var result = _client.SaveCusLink(item);
             return result.Result;
         }
+
+        public int UpdatedCusLinkVisited(string id)
+        {
+            var result = _client.UpdatedCusLinkVisited(new GlobalRequest { Id = id });
+            return result.Result;
+        }
     }
 }

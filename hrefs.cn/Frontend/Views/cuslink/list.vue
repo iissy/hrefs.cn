@@ -47,6 +47,7 @@
                                             <th width="80">编号</th>
                                             <th width="350">标题</th>
                                             <th>地址</th>
+                                            <th width="100">访问</th>
                                             <th width="100">类型</th>
                                             <th width="80">状态</th>
                                             <th width="150">添加时间</th>
@@ -59,6 +60,7 @@
                                             <td>{{site.id}}</td>
                                             <td>{{site.title}}</td>
                                             <td>{{site.url}}</td>
+                                            <td align="center">{{site.visited}}</td>
                                             <td align="center">{{site.linkType}}</td>
                                             <td>{{site.status}}</td>
                                             <td>{{site.adddate | formatDate}}</td>

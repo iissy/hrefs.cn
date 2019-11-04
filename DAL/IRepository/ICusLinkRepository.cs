@@ -11,5 +11,6 @@ namespace ASY.Hrefs.DAL.IRepository
         IEnumerable<CusLink> PagerCusLinkList(int size, int offset, string catid, string title, string url, out int total);
         IEnumerable<CusLink> GetTopCusLink(int size, string fields = "*");
         IEnumerable<CusLink> ListCusLinkByPaging(int size, int skip, string fields = "*");
+        int UpdatedCusLinkVisited(string id);
     }
 }

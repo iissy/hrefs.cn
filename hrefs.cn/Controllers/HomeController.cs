@@ -104,6 +104,14 @@ namespace hrefs.cn.Controllers
             Response.Redirect(url);
         }
 
+        [Route("cuslink/{id}")]
+        public void RedirectCusUrl(string id)
+        {
+            _cusLinkService.UpdatedCusLinkVisited(id);
+            var url = _cusLinkService.GetCusLink(id, "url").Url;
+            Response.Redirect(url);
+        }
+
         [Route("payme")]
         public IActionResult Payme()
         {
