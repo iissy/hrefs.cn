@@ -1,0 +1,73 @@
+<template>
+    <div id="main">
+        <div id="app">
+            <div id="dataformuser" class="row">
+                <div class="col-md-12">
+                    <div class="portlet light" style="margin-bottom: 0;">
+                        <div class="portlet-body form" style="max-width: 1200px;margin:0 auto;">
+                            <div class="form-horizontal mg0" role="form">
+                                <div class="form-body" style="padding:0 0 0 0;">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">邮箱地址</label>
+                                        <div class="col-md-4">
+                                            <input type="text" v-model="sto" name="sto" class="form-control" placeholder="邮箱地址">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">邮件标题</label>
+                                        <div class="col-md-4">
+                                            <input type="text" v-model="sToSubject" name="sToSubject" class="form-control" placeholder="邮件标题">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-4">
+                                            <button style="color:#ffffff;padding:5px 30px 5px 30px;background-color: #36c6d3;font-size:16px;border-radius:10px;border: 1px solid #2bb8c4;" class="right" v-on:click="loginpost">点击发送</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import httper from '../util/httper';
+
+    export default {
+        data: function () {
+            return {
+                sto: 'hr@reasonables.com',
+                sToSubject: 'Realizing Value from IT Investment'
+            }
+        },
+        methods: {
+            loginpost: function () {
+                var self = this;
+                if (!!$.trim(self.sto) && !!$.trim(self.sToSubject)) {
+                    httper.post('/sendemail', {
+                        sto: self.sto,
+                        sToSubject: self.sToSubject
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            console.log(response.data.status);
+                            alert("成功发送邮件");
+                        }
+                        else {
+                            alert("发送邮件异常");
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+                else {
+                    alert("请输入内容");
+                }
+            }
+        }
+    }
+</script>

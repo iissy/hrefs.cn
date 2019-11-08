@@ -10,6 +10,7 @@ import ArticleList from '../views/article/list';
 import AccountList from '../views/account/list';
 import CusLinkAdd from '../views/cuslink/add';
 import CusLinkList from '../views/cuslink/list';
+import SendEmail from '../views/SendEmail';
 
 Vue.use(Router);
 
@@ -66,6 +67,11 @@ const routes = [
         meta: { title: "网摘管理" },
         name: 'CusLinkList',
         component: CusLinkList
+    }, {
+        path: '/SendEmail',
+        meta: { title: "contact us" },
+        name: 'SendEmail',
+        component: SendEmail
     }
 ];
 

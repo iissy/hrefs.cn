@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -39,6 +40,52 @@ namespace hrefs.cn.Controllers
         public IActionResult Login()
         {
             return View("Index");
+        }
+
+        [AllowAnonymous]
+        [Route("sendemail")]
+        public IActionResult SendEmail()
+        {
+            return View("Index");
+        }
+
+        [AllowAnonymous]
+        [Route("sendemail")]
+        [HttpPost]
+        public JsonResult SendEmail(string sto, string sToSubject)
+        {
+            try
+            {
+                string sSmtp = "smtp.qq.com";
+                string sPort = "25";
+                string sFrom = "pinbor@iissy.com";
+                string sAccount = "pinbor@iissy.com";
+                string sPass = "cdlemhgdsxcwdfei";
+
+                SmtpClient client = new SmtpClient();
+                client.Host = sSmtp;
+                client.UseDefaultCredentials = false;
+                client.Port = Convert.ToInt16(sPort);
+                client.Credentials = new System.Net.NetworkCredential(sAccount, sPass);
+
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                MailMessage message = new MailMessage(sFrom, sto);
+                message.Subject = sToSubject;
+                message.Body = "......";
+                message.BodyEncoding = System.Text.Encoding.UTF8;
+                message.IsBodyHtml = true;
+                message.Headers.Add("Return-Path", "web@reasonables.com");
+                message.From = new MailAddress("johnsmith@reasonables.com", "John Smith");
+                message.Sender = new MailAddress("pinbor@iissy.com", "何敏");
+                message.ReplyToList.Add("web@reasonables.com");
+                client.Send(message);
+            }
+            catch
+            {
+                return Json(new { status = false });
+            }
+
+            return Json(new { status = true });
         }
 
         [Route("main/{**path}", Name ="main")]
