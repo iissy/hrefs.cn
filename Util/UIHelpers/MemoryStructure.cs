@@ -1,12 +1,15 @@
 ﻿namespace ASY.Hrefs.Util.UIHelpers
 {
+    /// <summary>
+    /// 数据结构
+    /// </summary>
     public abstract class MemoryStructure
     {
         public abstract int this[int i, int j] { get; set; }
     }
 
     /// <summary>
-    /// Use this unless you get out of memory exceptions when comparing large strings
+    /// 变长二维数组
     /// </summary>
     public class RectangularArray : MemoryStructure
     {
@@ -25,7 +28,7 @@
     }
 
     /// <summary>
-    /// If the product of the lengths of the strings is greater than 536,848,900 you need to use this structure to avoid the 2GB CLR limit on single objects
+    /// 二维数组
     /// </summary>
     public class JaggedArray : MemoryStructure
     {
