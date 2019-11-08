@@ -88,6 +88,72 @@ namespace hrefs.cn.Controllers
             return Json(new { status = true });
         }
 
+        [AllowAnonymous]
+        [Route("editdistance")]
+        public IActionResult EditDistance()
+        {
+            return View("Index");
+        }
+
+        [AllowAnonymous]
+        [Route("editdistance1")]
+        [HttpGet]
+        public JsonResult EditDistance1()
+        {
+            int result = -1;
+            try
+            {
+                var file1 = FileToBinary(_env.WebRootPath + "/favicon1.png");
+                var file2 = FileToBinary(_env.WebRootPath + "/favicon2.png");
+
+                result = Levenshtein.CalculateDistance(file1, file2, 1);    
+            }
+            catch
+            {
+                return Json(new { result });
+            }
+
+            return Json(new { result });
+        }
+
+        [AllowAnonymous]
+        [Route("editdistance2")]
+        [HttpPost]
+        public JsonResult EditDistance2(string str1, string str2)
+        {
+            int result = -1;
+            try
+            {
+                result = Levenshtein.CalculateDistance(str1, str2, 1);
+            }
+            catch
+            {
+                return Json(new { result });
+            }
+
+            return Json(new { result });
+        }
+
+        public string FileToBinary(string FilePath)
+        {
+            FileStream fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read);
+            //利用新传来的路径实例化一个FileStream对像
+            int fileLength = Convert.ToInt32(fs.Length);
+            //得到对像大小
+            byte[] fileByteArray = new byte[fileLength];
+            //声明一个byte数组
+            BinaryReader br = new BinaryReader(fs);
+            //声明一个读取二进流的BinaryReader对像
+            for (int i = 0; i < fileLength; i++)
+            {//循环数组
+                br.Read(fileByteArray, 0, fileLength);
+                //将数据读取出来放在数组中
+            }
+            string strData = Convert.ToBase64String(fileByteArray);
+            //装数组转换为String字符串
+            return strData;
+        }
+
         [Route("main/{**path}", Name ="main")]
         public IActionResult Index()
         {
