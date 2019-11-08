@@ -60,7 +60,7 @@ namespace hrefs.cn.Controllers
                 string sPort = "25";
                 string sFrom = "pinbor@iissy.com";
                 string sAccount = "pinbor@iissy.com";
-                string sPass = "cdlemhgdsxcwdfei";
+                string sPass = "********";
 
                 SmtpClient client = new SmtpClient();
                 client.Host = sSmtp;
