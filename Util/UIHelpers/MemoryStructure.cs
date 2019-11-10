@@ -9,7 +9,7 @@
     }
 
     /// <summary>
-    /// 变长二维数组
+    /// 二维数组
     /// </summary>
     public class RectangularArray : MemoryStructure
     {
@@ -28,7 +28,7 @@
     }
 
     /// <summary>
-    /// 二维数组
+    /// 交错数组
     /// </summary>
     public class JaggedArray : MemoryStructure
     {
