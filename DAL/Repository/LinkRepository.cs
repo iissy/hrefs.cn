@@ -34,7 +34,7 @@ namespace ASY.Hrefs.DAL.Repository
             IEnumerable<Link> list;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
-                string sql = string.Format($"SELECT title,id,visited,brief FROM link where catid = @catid ORDER BY visited desc");
+                string sql = string.Format($"SELECT title,id,visited,brief,linktype FROM link where catid = @catid ORDER BY visited desc");
                 list = conn.Query<Link>(sql, new { catid });
 
             }
