@@ -45,8 +45,15 @@ namespace hrefs.cn.Controllers
         public IActionResult Links(string catid)
         {
             var list = _linkService.ListLinkByCat(catid);
-            ViewBag.Cat = list.FirstOrDefault()?.LinkType;
-            return View(list);
+            if(list.Any())
+            {
+                ViewBag.Cat = list.FirstOrDefault().LinkType;
+                return View(list);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [Route("")]
