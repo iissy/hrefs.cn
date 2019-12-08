@@ -1,5 +1,5 @@
 ﻿#基于 microsoft/dotnet 来构建我们的镜像
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 
 #拷贝项目publish文件夹中的所有文件到docker容器中的publish文件夹中
 COPY . /publish
