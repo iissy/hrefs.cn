@@ -56,7 +56,7 @@ a {
     padding: 0;
     text-align: center;
     overflow: hidden;
-    border: 1px solid #dee3eb;
+    border-bottom: 1px solid #dee3eb;
     min-width: 1300px;
     margin-bottom: 10px;
 }
