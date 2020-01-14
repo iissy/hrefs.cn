@@ -19,7 +19,7 @@
     <div class="tab-pane fade show active" id="@active.Key" role="tabpanel" aria-labelledby="@(active.Key)-tab">
         @foreach (var item in active.Value)
         {<div class="site-item col-2" style="padding-left:10px;">
-                <a style="width:100%;" href="/link/@item.Id" target="_blank">@Html.Raw(item.Title)</a>
+                <a style="width:100%;" href="/link/@item.Id" title="@item.Brief" target="_blank">@Html.Raw(item.Title)</a>
             </div>}
     </div>
 
@@ -28,7 +28,7 @@
 <div class="tab-pane fade" id="@group.Key" role="tabpanel" aria-labelledby="@(group.Key)-tab">
     @foreach (var item in group.Value)
     {<div class="site-item col-2" style="padding-left:10px;">
-            <a style="width:100%;margin-right:5px;" href="/link/@item.Id" target="_blank">@Html.Raw(item.Title)</a>
+            <a style="width:100%;margin-right:5px;" href="/link/@item.Id" title="@item.Brief" target="_blank">@Html.Raw(item.Title)</a>
         </div>}
 </div>
 }

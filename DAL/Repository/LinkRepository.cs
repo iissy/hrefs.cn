@@ -22,7 +22,7 @@ namespace ASY.Hrefs.DAL.Repository
             IEnumerable<Link> list;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
-                string sql = string.Format($"SELECT icon,title,id,linkType FROM link ORDER BY linkType asc,visited desc");
+                string sql = string.Format($"SELECT icon,title,id,linkType,brief FROM link ORDER BY linkType asc,visited desc");
                 list = conn.Query<Link>(sql);
             }
 
