@@ -143,7 +143,7 @@ namespace MicroServices
         public override Task<ArticlePagerResponse> PagerArticleList(GlobalRequest request, ServerCallContext context)
         {
             var total = 0;
-            var result = _articleRepository.PagerArticleList(request.Size, request.Skip, request.Id, request.Title, null, out total, request.Fields);
+            var result = _articleRepository.PagerArticleList(request.Size, request.Skip, request.Id, request.Title, out total, request.Fields);
             var response = new ArticlePagerResponse();
             response.Total = total;
             response.Items.AddRange(result.Select(p => _mapper.Map<ArticleProto>(p)));

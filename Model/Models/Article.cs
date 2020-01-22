@@ -6,9 +6,7 @@ namespace ASY.Hrefs.Model.Models
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public string Origin { get; set; }
         public string Visited { get; set; }
-        public string Catalog { get; set; }
         public string Brief { get; set; }
         public string Icon { get; set; }
         public string Body { get; set; }

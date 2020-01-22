@@ -15,28 +15,8 @@
                                         <div class="form-body" style="padding:0 0 0 0;">
                                             <div class="form-group">
                                                 <label class="col-md-1 control-label">标题</label>
-                                                <div class="col-md-7">
+                                                <div class="col-md-11">
                                                     <input type="text" v-model="Title" class="form-control" placeholder="请在此填写标题" />
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <select v-model="Catalog" class="form-control">
-                                                        <option value="技术">技术</option>
-                                                        <option value="科技">科技</option>
-                                                        <option value="新闻">新闻</option>
-                                                        <option value="故事">故事</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <select v-model="Origin" class="form-control">
-                                                        <option value="程序员网址导航">程序员网址导航</option>
-                                                        <option value="中关村在线">中关村在线</option>
-                                                        <option value="凤凰网科技">凤凰网科技</option>
-                                                        <option value="新浪科技">新浪科技</option>
-                                                        <option value="网易科技">网易科技</option>
-                                                        <option value="快科技">快科技</option>
-                                                        <option value="搜狐科技">搜狐科技</option>
-                                                        <option value="太平洋电脑网">太平洋电脑网</option>
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -109,8 +89,6 @@
         data: function () {
             return {
                 Id: '',
-                Catalog: '',
-                Origin: '',
                 Title: '',
                 Icon: '',
                 Brief: '',
@@ -128,8 +106,6 @@
                 var url = '/article/get/' + self.$route.params.id;
                 httper.get(url).then(function (response) {
                     self.Id = response.data.id;
-                    self.Catalog = response.data.catalog;
-                    self.Origin = response.data.origin,
                     self.Title = response.data.title;
                     self.Icon = response.data.icon;
                     self.Brief = response.data.brief;
@@ -162,9 +138,6 @@
                 if (!!$.trim(self.Icon) && !!$.trim(self.Id) && !!$.trim(self.Title) && !!$.trim(self.Body) && !!$.trim(self.Brief)) {
                     httper.post('/article/save', {
                         Id: self.Id,
-                        Catalog: self.Catalog,
-                        Origin: self.Origin,
-                        LinkType: self.LinkType,
                         Title: self.Title,
                         Icon: self.Icon,
                         Brief: self.Brief,

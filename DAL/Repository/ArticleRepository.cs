@@ -44,14 +44,14 @@ namespace ASY.Hrefs.DAL.Repository
             IEnumerable<Article> list;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
-                string sql = string.Format($"SELECT {fields} FROM article ORDER BY catalog asc,createTime desc LIMIT @PageSize OFFSET @Offset");
+                string sql = string.Format($"SELECT {fields} FROM article ORDER BY createTime desc LIMIT @PageSize OFFSET @Offset");
                 list = conn.Query<Article>(sql, new { PageSize = size, Offset = skip });
             }
 
             return list;
         }
 
-        public IEnumerable<Article> PagerArticleList(int size, int skip, string id, string title, string catalog, out int total, string fields = "*")
+        public IEnumerable<Article> PagerArticleList(int size, int skip, string id, string title, out int total, string fields = "*")
         {
             string sqlWhere = $"where 1=1";
             if (!string.IsNullOrWhiteSpace(id))
@@ -64,19 +64,15 @@ namespace ASY.Hrefs.DAL.Repository
                 {
                     sqlWhere += $" and title like '%{title}%'";
                 }
-                if (!string.IsNullOrWhiteSpace(catalog))
-                {
-                    sqlWhere += " and catalog = @catalog";
-                }
             }
 
             IEnumerable<Article> list;
             using (IDbConnection conn = SqlHelpers.CreateDbConnection(_connection))
             {
                 string sql = string.Format($"SELECT {fields} FROM article {sqlWhere} ORDER BY createTime desc LIMIT @PageSize OFFSET @Offset");
-                list = conn.Query<Article>(sql, new { id, title, catalog, PageSize = size, Offset = skip });
+                list = conn.Query<Article>(sql, new { id, title, PageSize = size, Offset = skip });
 
-                total = conn.QueryFirstOrDefault<int>($"select count(*) FROM article {sqlWhere}", new { id, title, catalog });
+                total = conn.QueryFirstOrDefault<int>($"select count(*) FROM article {sqlWhere}", new { id, title });
             }
 
             return list;
@@ -90,14 +86,12 @@ namespace ASY.Hrefs.DAL.Repository
                 object exists = conn.ExecuteScalar("select id from article where Id = @Id", new { Id = article.Id });
                 if (exists == null && article.AddOrEdit)
                 {
-                    result = conn.Execute("INSERT INTO article(id,origin,catalog,icon,title,brief,body)" +
-                    "values(@Id,@Origin,@Catalog,@Icon,@Title,@Brief,@Body)", article);
+                    result = conn.Execute("INSERT INTO article(id,icon,title,brief,body)" +
+                    "values(@Id,@Icon,@Title,@Brief,@Body)", article);
                 }
                 else if (exists != null && !article.AddOrEdit)
                 {
                     result = conn.Execute("update article set " +
-                        "origin=@Origin," +
-                        "catalog=@Catalog," +
                         "icon=@Icon," +
                         "title=@Title," +
                         "brief=@Brief," +

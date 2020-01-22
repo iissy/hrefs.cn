@@ -8,18 +8,6 @@
             <div id="list">
                 <div class="search form-horizontal" style="padding:10px 20px 0 10px;overflow:auto;">
                     <div class="form-group">
-                        <div class="col-md-2">
-                            <label class="col-md-3 control-label">栏目：</label>
-                            <div class="col-md-9">
-                                <select v-model="Catalog" class="inputclass">
-                                    <option value=""></option>
-                                    <option value="技术">技术</option>
-                                    <option value="科技">科技</option>
-                                    <option value="新闻">新闻</option>
-                                    <option value="故事">故事</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <label class="col-md-2 control-label">编号：</label>
                             <div class="col-md-10">
@@ -48,8 +36,6 @@
                                             <th width="400">编号</th>
                                             <th>标题</th>
                                             <th width="100">访问</th>
-                                            <th width="150">来源</th>
-                                            <th width="150">目录</th>
                                             <th width="150">时间</th>
                                             <th width="150">操作</th>
                                         </tr>
@@ -59,15 +45,6 @@
                                             <td style="max-width:340px;overflow:hidden;white-space:nowrap;">{{article.id}}</td>
                                             <td><a :href="'https://www.hrefs.cn/article/'+article.id" target="_blank">{{article.title}}</a></td>
                                             <td align="center">{{article.visited}}</td>
-                                            <td align="center">{{article.origin}}</td>
-                                            <td align="center">
-                                                <select name="public-choice" class="inputclass" v-model="article.catalog" @change="getCatalogSelected(article)">
-                                                    <option value="技术">技术</option>
-                                                    <option value="科技">科技</option>
-                                                    <option value="新闻">新闻</option>
-                                                    <option value="故事">故事</option>
-                                                </select>
-                                            </td>
                                             <td>{{article.createTime | formatDate}}</td>
                                             <td align="center">
                                                 <a v-on:click="editarticle('ArticleEdit', {id: article.id})" class="btn btn-sm btn-outline filter-submit purple">
