@@ -1,13 +1,26 @@
-本仓库是爱斯园网站后台管理项目，它是一个纯 vue 项目，接口依赖仓库（https://github.com/iissy/goweb），如需开发调试，需要启动两个项目。
+本仓库是爱斯园网站（程序员网址导航）后台管理项目，它是一个纯 vue 项目，如需开发调试，还需要启动接口项目。接口依赖仓库：https://github.com/iissy/goweb
 
 ## asy 2.0 Released 2020年02月23日
 + 前端路由支持 vue-router
 + 富文本编辑器 ckeditor4-vue
 + axios 引入
 + 支持跨域接口调用
++ 图片上传
+
+## 功能模块
++ 文章管理
++ 网址管理
++ 网摘管理
++ 用户管理(目前支持单用户)
 
 ## 包安装
 + npm install
+
+## 使用
++ 必须先安装接口项目仓库地址：https://github.com/iissy/goweb
++ 启动接口项目，http://locahost
++ 启动 vue 项目，http://locahost:8080
++ 登录：jimmy/123456
 
 ## 发布
 ![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/edit.png "发布图片")
