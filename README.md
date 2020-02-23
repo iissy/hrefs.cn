@@ -10,10 +10,10 @@
 + npm install
 
 ## 发布
-![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/edit.jpg "发布图片")
+![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/edit.png "发布图片")
 
 ## 列表
-![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/list.jpg "列表图片")
+![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/list.png "列表图片")
 
 ## 问题建议
 https://github.com/iissy/hrefs.cn/issues
