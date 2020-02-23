@@ -1,19 +1,22 @@
-# 程序员网址导航
-网站主要提供程序员常用的网址，以及一些技术文章分享。
+本仓库是爱斯园网站后台管理项目，它是一个纯 vue 项目，接口依赖仓库（https://github.com/iissy/goweb），如需开发调试，需要启动两个项目。
 
-# Hrefs 1.0 Released 2019年09月28日
-+ 基于.Net 3.0开发
-+ gRPC微服务，MVC网站
-+ Mysql 8.0 数据库
-+ AutoMapper 9.0.0，Dapper 2.0.4
-+ 前端 webpack + vue-router + axios
-+ CentOS7.6，Docker-compose，Nginx 部署
+## asy 2.0 Released 2020年02月23日
++ 前端路由支持 vue-router
++ 富文本编辑器 ckeditor4-vue
++ axios 引入
++ 支持跨域接口调用
 
-# nodejs包安装
-npm install axios clean-webpack-plugin copy-webpack-plugin html-webpack-plugin jquery qs style-loader vue vue-html5-editor vue-loader vue-router vue-style-loader vue-template-compiler webpack webpack-cli webpack-merge --save-dev
+## 包安装
++ npm install
 
-# 参考技术文档
-https://www.hrefs.cn/article/net-core-3.0-gprc-hrefs-cn-release
+## 发布
+![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/edit.jpg "发布图片")
 
-# 问题建议
+## 列表
+![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/list.jpg "列表图片")
+
+## 问题建议
 https://github.com/iissy/hrefs.cn/issues
+
+## 官方网站
++ 程序员网址导航：https://www.hrefs.cn
