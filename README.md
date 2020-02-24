@@ -1,4 +1,4 @@
-本仓库是爱斯园（程序员网址导航）后台管理项目，它是一个纯 vue 项目，如需开发调试，还需要启动接口项目。接口项目仓库：https://github.com/iissy/goweb
+本仓库是爱斯园（程序员网址导航）内容管理项目，它是一个纯 vue 项目，如需开发调试，还需要启动接口项目。接口项目仓库：https://github.com/iissy/goweb
 
 ## asy 2.0 Released 2020年02月23日
 + 前端路由支持 vue-router
