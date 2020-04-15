@@ -1,9 +1,11 @@
-﻿(function ($) {
+﻿import jQuery from 'jquery';
+
+(function ($) {
     $.fn.extend({
         "upload": function (url, callback) {
-            var that = this;
+            let that = this;
             if (this.val()) {
-                var formData = new FormData(this.parents("form")[0]);
+                let formData = new FormData(this.parents("form")[0]);
                 $.ajax({
                     async: true,
                     cache: false,
@@ -14,7 +16,8 @@
                     url: url,
                     data: formData,
                     error: function (e) {
-                        that.val("");
+                        alert(e);
+                        that.val();
                     },
                     success: function (data) {
                         that.val("");

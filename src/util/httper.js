@@ -32,6 +32,6 @@ let httper = {
             })
         })
     }
-}
+};
 
 export default httper;

@@ -38,7 +38,7 @@
 <script>
     import httper from '../util/httper';
     import router from '../router';
-    import $ from 'jquery'
+    import $ from 'jquery';
 
     export default {
         data: function () {
@@ -63,5 +63,5 @@
                 }
             }
         }
-    }
+    };
 </script>

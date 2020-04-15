@@ -2,7 +2,7 @@
     <div style="position: relative;">
         <Menu tagIndex="6"></Menu>
         <div class="rightMain">
-            <div style="padding:0 0 0 0;height:60px;margin-bottom:20px;">
+            <div style="padding:0 0 0 0;height:60px;margin-bottom:10px;">
                 <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
             </div>
             <div id="list">
@@ -58,7 +58,7 @@
     import Menu from '../../components/menu';
     import router from '../../router';
     import httper from '../../util/httper';
-    import $ from 'jquery'
+    import $ from 'jquery';
 
     export default {
         data: function () {

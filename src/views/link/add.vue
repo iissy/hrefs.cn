@@ -2,7 +2,7 @@
     <div style="position: relative;">
         <Menu tagIndex="2"></Menu>
         <div class="rightMain">
-            <div style="padding:0 0 0 0;height:60px;margin-bottom:20px;">
+            <div style="padding:0 0 0 0;height:60px;margin-bottom:10px;">
                 <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
             </div>
             <div id="list">
@@ -51,7 +51,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-1 control-label">导航简介</label>
                                                 <div class="col-md-11">
-                                                    <ckeditor v-model="Brief" :config="editorConfig"></ckeditor>
+                                                    <input type="text" class="form-control" v-model="Brief" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -74,15 +74,11 @@
 
 <script>
     import Menu from '../../components/menu';
-    import Vue from 'vue';
-    import CKEditor from 'ckeditor4-vue';
     import router from '../../router';
     import httper from '../../util/httper';
-    import '../../util/upload';
     import server from "../../conf/config";
-    import $ from 'jquery'
+    import $ from 'jquery';
 
-    Vue.use(CKEditor);
     export default {
         data: function () {
             return {
@@ -92,37 +88,14 @@
                 Title: '',
                 Brief: '',
                 Icon: '',
-                Id: '',
-                showModuleName: false,
-                editorConfig: {
-                    toolbarGroups: [
-                        {name: 'document', groups: ['mode', 'document', 'doctools']},
-                        {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-                        {name: 'styles', groups: ['styles']},
-                        {name: 'links', groups: ['links']},
-                        {name: 'insert', groups: ['insert']},
-                        {name: 'colors', groups: ['colors']},
-                        {name: 'paragraph', groups: ['list', 'blocks', 'bidi', 'align', 'indent', 'paragraph']},
-                        {name: 'clipboard', groups: ['clipboard', 'undo']},
-                        {name: 'tools', groups: ['tools']}
-                    ],
-                    height: 500,
-                    filebrowserImageUploadUrl: server.upload,
-                    filebrowserUploadUrl: server.upload,
-                    // 使上传图片弹窗出现对应的“上传”tab标签
-                    removeDialogTabs: 'image:advanced;link:advanced',
-                    //粘贴图片时用得到
-                    extraPlugins: 'uploadimage',
-                    uploadUrl: server.upload
-                }
+                Id: ''
             };
         },
         components: {
-            Menu,
-            ckeditor: CKEditor.component
+            Menu
         },
         created: function () {
-            var self = this;
+            let self = this;
             self.loadCat();
             if (self.$route.params.id) {
                 let url = '/api/link/get/' + self.$route.params.id;
@@ -137,20 +110,20 @@
             }
         },
         methods: {
-            change: function () {
-                var self = this;
+            change: function() {
+                let self = this;
                 $("#upload").upload(server.upload, function (response) {
                     self.Icon = response.url;
                 });
             },
             loadCat: function () {
-                var self = this;
+                let self = this;
                 httper.get('/api/link/cat/list').then(function (response) {
                     self.options = response.data;
                 });
             },
             post: function () {
-                var self = this;
+                let self = this;
                 if (!!$.trim(self.Brief) && !!$.trim(self.Title) && !!$.trim(self.Url) && !!$.trim(self.LinkType)) {
                     httper.post('/api/link/save', {
                         id: self.Id,
@@ -161,7 +134,7 @@
                         url: self.Url
                     }).then(function (response) {
                         if (response.data > 0) {
-                            router.push({ name: 'LinkList', params: { size: 14, pageno: 1 } });
+                            router.push({ name: 'LinkList', params: { size: 14, pageno: 1 }});
                         }
                     });
                 }

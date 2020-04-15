@@ -2,7 +2,7 @@
     <div style="position: relative;">
         <Menu tagIndex="7"></Menu>
         <div class="rightMain">
-            <div style="padding:0 0 0 0;height:60px;margin-bottom:20px;">
+            <div style="padding:0 0 0 0;height:60px;margin-bottom:10px;">
                 <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
             </div>
             <div id="list">

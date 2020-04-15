@@ -2,7 +2,7 @@
     <div style="position: relative;">
         <Menu tagIndex="4"></Menu>
         <div class="rightMain">
-            <div style="padding:0 0 0 0;height:60px;margin-bottom:20px;">
+            <div style="padding:0 0 0 0;height:60px;margin-bottom:10px;">
                 <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
             </div>
             <div id="list">
@@ -14,39 +14,29 @@
                                     <div class="form-horizontal mg0" role="form">
                                         <div class="form-body" style="padding:0 0 0 0;">
                                             <div class="form-group">
-                                                <label class="col-md-1 control-label">标题</label>
-                                                <div class="col-md-11">
-                                                    <input type="text" v-model="Title" class="form-control" placeholder="请在此填写标题" />
+                                                <div class="col-md-12">
+                                                    <input type="text" v-model="Title" class="form-control" placeholder="请在此填写文章标题" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-1 control-label">连接</label>
-                                                <div class="col-md-11">
-                                                    <input type="text" id="Id" v-model="Id" class="form-control" placeholder="请在此填写url链接" />
+                                                <div class="col-md-12">
+                                                    <input type="text" id="Id" v-model="Id" class="form-control" placeholder="请在此填写文章 url 链接" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-1 control-label">图片</label>
-                                                <div class="col-md-11">
+                                                <div class="col-md-12">
                                                     <div id="imgfileinput" data-provides="fileinput" class="fileinput fileinput-new right">
                                                         <span class="btn green btn-file">
                                                             <span class="fileinput-new"> 选择图片 </span>
                                                             <input type="file" id="upload" @change="change" name="upload" />
                                                         </span>
                                                     </div>
-                                                    <input type="text" v-model="Icon" class="form-control" />
+                                                    <input type="text" v-model="Icon" class="form-control" placeholder="上传图片" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-1 control-label">简介</label>
-                                                <div class="col-md-11">
-                                                    <input type="text" class="form-control" v-model="Brief" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-1 control-label">文章内容</label>
-                                                <div class="col-md-11">
-                                                    <ckeditor v-model="Body" :config="editorConfig"></ckeditor>
+                                                <div class="col-md-12">
+                                                    <ckeditor :editor="editor" v-model="Body" :config="editorConfig" @ready="onEditorReady"></ckeditor>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -70,12 +60,54 @@
 <script>
     import Menu from '../../components/menu';
     import Vue from 'vue';
-    import CKEditor from 'ckeditor4-vue';
+    import CKEditor from '@ckeditor/ckeditor5-vue';
+    import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+    import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
+    import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
+    import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
+    import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
+    import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+
+    import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
+    import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
+    import Code from '@ckeditor/ckeditor5-basic-styles/src/code';
+    import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
+    import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript';
+    import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript';
+
+    import Indent from '@ckeditor/ckeditor5-indent/src/indent';
+    import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock';
+
+    import Font from '@ckeditor/ckeditor5-font/src/font';
+    import FontFamily from '@ckeditor/ckeditor5-font/src/fontfamily';
+
+    import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
+    import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
+
+    import Image from '@ckeditor/ckeditor5-image/src/image';
+    import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
+    import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
+    import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
+    import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
+
+    import Heading from '@ckeditor/ckeditor5-heading/src/heading';
+
+    import Table from '@ckeditor/ckeditor5-table/src/table';
+    import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+    import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties';
+    import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
+
+    import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+
+    import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline';
+
+    import List from '@ckeditor/ckeditor5-list/src/list';
+    import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
     import router from '../../router';
     import httper from '../../util/httper';
     import '../../util/upload';
     import server from "../../conf/config";
-    import $ from 'jquery'
+    import $ from 'jquery';
 
     Vue.use(CKEditor);
     export default {
@@ -86,30 +118,78 @@
                 Icon: '',
                 Brief: '',
                 Body: '',
+                editor: ClassicEditor,
                 editorConfig: {
-                    toolbarGroups: [
-                        {name: 'document', groups: ['mode', 'document', 'doctools']},
-                        {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-                        {name: 'styles', groups: ['styles']},
-                        {name: 'links', groups: ['links']},
-                        {name: 'insert', groups: ['insert']},
-                        {name: 'colors', groups: ['colors']},
-                        {name: 'paragraph', groups: ['list', 'blocks', 'bidi', 'align', 'indent', 'paragraph']},
-                        {name: 'clipboard', groups: ['clipboard', 'undo']},
-                        {name: 'tools', groups: ['tools']}
+                    plugins: [
+                        EssentialsPlugin,
+                        BoldPlugin,
+                        ItalicPlugin,
+                        LinkPlugin, HorizontalLine,
+                        ParagraphPlugin, Underline, Strikethrough, Subscript, Superscript, Indent, IndentBlock, TodoList,
+                        Code, CodeBlock, Font, FontFamily, List, CKFinder, ImageUpload,
+                        Image, ImageToolbar, ImageCaption, ImageStyle, ImageResize,
+                        Heading, Alignment,
+                        Table, TableToolbar, TableProperties, TableCellProperties
                     ],
-                    height: 500,
-                    pasteFilter: false,
-                    allowedContent: true,
-                    enterMode: 3,
-                    shiftEnterMode: 2,
-                    filebrowserImageUploadUrl: server.upload,
-                    filebrowserUploadUrl: server.upload,
-                    // 使上传图片弹窗出现对应的“上传”tab标签
-                    removeDialogTabs: 'image:advanced;link:advanced',
-                    //粘贴图片时用得到
-                    extraPlugins: 'uploadimage,colorbutton',
-                    uploadUrl: server.upload
+                    toolbar: {
+                        items: [
+                            'heading',
+                            'bold',
+                            'italic',
+                            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
+                            'underline', 'strikethrough', 'subscript', 'superscript',
+                            'link',
+                            'undo', 'redo', 'outdent', 'indent',
+                            'code', 'codeBlock',
+                            'alignment',
+                            'horizontalLine',
+                            'bulletedList', 'numberedList', 'todoList',
+                            'imageUpload',
+                            'insertTable'
+                        ]
+                    },
+                    indentBlock: {
+                        offset: 1,
+                        unit: 'em'
+                    },
+                    image: {
+                        toolbar: ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
+                        styles: ['full', 'alignLeft', 'alignRight']
+                    },
+                    alignment: {
+                        options: [ 'left', 'center', 'right' ]
+                    },
+                    table: {
+                        contentToolbar: [
+                            'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'
+                        ],
+                        tableProperties: {},
+                        tableCellProperties: {}
+                    },
+                    codeBlock: {
+                        languages: [
+                            { language: 'plaintext', label: 'Plain text' },
+                            { language: 'go', label: 'Golang' },
+                            { language: 'cs', label: 'C#' },
+                            { language: 'cpp', label: 'C++' },
+                            { language: 'css', label: 'CSS' },
+                            { language: 'sql', label: 'SQL' },
+                            { language: 'xml', label: 'HTML/XML' },
+                            { language: 'java', label: 'Java' },
+                            { language: 'javascript', label: 'JavaScript' },
+                            { language: 'php', label: 'PHP' },
+                            { language: 'python', label: 'Python' },
+                            { language: 'ruby', label: 'Ruby' },
+                            { language: 'typescript', label: 'TypeScript' },
+                            { language: 'c', label: 'C' }
+                        ]
+                    },
+                    ckfinder: {
+                        uploadUrl: server.upload,
+                        options: {
+                            resourceType: 'Images'
+                        }
+                    }
                 }
             };
         },
@@ -132,6 +212,60 @@
             }
         },
         methods: {
+            onEditorReady(editor) {
+                this.element(editor, 'div')
+                this.element(editor, 'pre')
+            },
+            element: function (editor, ele) {
+                editor.model.schema.register(ele, {
+                    allowWhere: '$block',
+                    allowContentOf: '$root'
+                });
+
+                // Allow <div> elements in the model to have all attributes.
+                editor.model.schema.addAttributeCheck(context => {
+                    if (context.endsWith(ele)) {
+                        return true;
+                    }
+                });
+
+                // View-to-model converter converting a view <div> with all its attributes to the model.
+                editor.conversion.for('upcast').elementToElement({
+                    view: ele,
+                    model: (viewElement, modelWriter) => {
+                        return modelWriter.createElement(ele, viewElement.getAttributes());
+                    }
+                });
+
+                // Model-to-view converter for the <div> element (attributes are converted separately).
+                editor.conversion.for('downcast').elementToElement({
+                    model: ele,
+                    view: ele
+                });
+
+                // Model-to-view converter for <div> attributes.
+                // Note that a lower-level, event-based API is used here.
+                editor.conversion.for('downcast').add(dispatcher => {
+                    dispatcher.on('attribute', (evt, data, conversionApi) => {
+                        // Convert <div> attributes only.
+                        if (data.item.name != ele) {
+                            return;
+                        }
+
+                        const viewWriter = conversionApi.writer;
+                        const viewDiv = conversionApi.mapper.toViewElement(data.item);
+
+                        // In the model-to-view conversion we convert changes.
+                        // An attribute can be added or removed or changed.
+                        // The below code handles all 3 cases.
+                        if (data.attributeNewValue) {
+                            viewWriter.setAttribute(data.attributeKey, data.attributeNewValue, viewDiv);
+                        } else {
+                            viewWriter.removeAttribute(data.attributeKey, viewDiv);
+                        }
+                    });
+                });
+            },
             change: function () {
                 let self = this;
                 $("#upload").upload(server.upload, function (response) {
@@ -140,7 +274,7 @@
             },
             post: function () {
                 var self = this;
-                if (!!$.trim(self.Icon) && !!$.trim(self.Id) && !!$.trim(self.Title) && !!$.trim(self.Body) && !!$.trim(self.Brief)) {
+                if (!!$.trim(self.Icon) && !!$.trim(self.Id) && !!$.trim(self.Title) && !!$.trim(self.Body)) {
                     httper.post('/api/article/save', {
                         id: self.Id,
                         title: self.Title,
@@ -149,7 +283,7 @@
                         body: self.Body
                     }).then(function (response) {
                         if (response.data > 0) {
-                            router.push({ name: 'ArticleList', params: { size: 14, pageno: 1 } });
+                            router.push({name: 'ArticleList', params: {size: 14, pageno: 1}});
                         }
                     });
                 }
