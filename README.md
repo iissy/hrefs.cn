@@ -24,7 +24,7 @@
 + 登录：jimmy/123456
 
 ## 发布
-![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/edit.png "发布图片")
+![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/modify.png "发布图片")
 
 ## 列表
 ![markdown](https://github.com/iissy/hrefs.cn/blob/master/images/list.png "列表图片")
