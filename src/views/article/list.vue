@@ -2,9 +2,7 @@
     <div style="position: relative;">
         <Menu tagIndex="5"></Menu>
         <div class="rightMain">
-            <div style="padding:0 0 0 0;height:60px;margin-bottom:10px;">
-                <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
-            </div>
+            <Header></Header>
             <div id="list">
                 <div class="search form-horizontal" style="padding:10px 20px 0 10px;overflow:auto;">
                     <div class="form-group">
@@ -68,6 +66,7 @@
 </template>
 
 <script>
+    import Header from '../../components/header';
     import Menu from '../../components/menu';
     import Pager from '../../components/pager';
     import httper from '../../util/httper';
@@ -87,6 +86,7 @@
             };
         },
         components: {
+            Header,
             Menu,
             Pager
         },

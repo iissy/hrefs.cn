@@ -2,9 +2,7 @@
     <div style="position: relative;">
         <Menu tagIndex="4"></Menu>
         <div class="rightMain">
-            <div style="padding:0 0 0 0;height:60px;margin-bottom:10px;">
-                <div style="background-color: #ffffff;height:60px;padding:10px;"></div>
-            </div>
+            <Header></Header>
             <div id="list">
                 <form class="form-horizontal mg0">
                     <div id="dataform" class="row">
@@ -58,6 +56,7 @@
 </template>
 
 <script>
+    import Header from '../../components/header';
     import Menu from '../../components/menu';
     import Vue from 'vue';
     import CKEditor from '@ckeditor/ckeditor5-vue';
@@ -194,6 +193,7 @@
             };
         },
         components: {
+            Header,
             Menu,
             ckeditor: CKEditor.component
         },

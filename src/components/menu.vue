@@ -1,10 +1,13 @@
 <template>
     <div class="leftBar">
         <div id="header">
-            <div style="margin:0 auto 0 auto;text-align:left;height:60px;">
-                <div style="overflow:hidden;background-color: #17C4BB;">
-                    <div style="margin-left:10px;padding:5px 5px 5px 5px;">
-                        <a href="/"><img src="/assets/images/logo.png" height="50" width="200"/></a>
+            <div style="margin:0 auto 0 auto;text-align:left;height:40px;">
+                <div style="overflow:hidden;">
+                    <div style="margin-left:30px;margin-top: 10px;float:left;">
+                        <a href="/" class="name">爱斯园</a>
+                    </div>
+                    <div style="width: 18px;height: 18px;float: right;margin-top: 11px;margin-right: 10px;">
+                        <img src="/shouqi.png" />
                     </div>
                 </div>
             </div>
