@@ -194,7 +194,7 @@ div.pic:hover {
 #list .hd-button { color:#ffffff;padding:3px 20px 3px 20px;background-color: #36c6d3;font-size:14px;border-radius:10px;border: 1px solid #2bb8c4;float:right; }
 
 div#list .ck-editor__main .ck-content {
-    min-height: 584px;
+    min-height: 594px;
     padding-left: 15px;
     padding-right: 15px;
 }
