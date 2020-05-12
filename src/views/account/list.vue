@@ -73,21 +73,21 @@
             Pager
         },
         created: function () {
-            var self = this;
+            let self = this;
             self.current = parseInt(self.$route.params.pageno);
             self.display = parseInt(self.$route.params.size);
             self.load();
         },
         filters: {
             formatDate(time) {
-                var date = new Date(time);
+                let date = new Date(time);
                 return formatDate(date, "yyyy-MM-dd hh:mm:ss");
             }
         },
         methods: {
             page_change: function (currentPage) {
-                var self = this;
-                if(self.current != currentPage) {
+                let self = this;
+                if(self.current !== currentPage) {
                     self.current = currentPage;
                     router.push({ name: 'AccountList', params: { size: self.display, pageno: self.current } });
                 }
@@ -95,7 +95,7 @@
                 self.load();
             },
             load: function () {
-                var self = this;
+                let self = this;
                 httper.post('/api/account/list/' + self.display + '/' + self.current, {
                 }).then(function (response) {
                     self.datas = response.data.list;
@@ -116,7 +116,7 @@
                 }
             },
             search: function () {
-                var self = this;
+                let self = this;
                 self.$refs.pager.setSearch(1);
             }
         }

@@ -248,7 +248,7 @@
                 editor.conversion.for('downcast').add(dispatcher => {
                     dispatcher.on('attribute', (evt, data, conversionApi) => {
                         // Convert <div> attributes only.
-                        if (data.item.name != ele) {
+                        if (data.item.name !== ele) {
                             return;
                         }
 
@@ -273,7 +273,7 @@
                 });
             },
             post: function () {
-                var self = this;
+                let self = this;
                 if (!!$.trim(self.Icon) && !!$.trim(self.Id) && !!$.trim(self.Title) && !!$.trim(self.Body)) {
                     httper.post('/api/article/save', {
                         id: self.Id,

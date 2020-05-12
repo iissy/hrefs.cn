@@ -75,10 +75,10 @@
             Menu
         },
         created: function () {
-            var self = this;
+            let self = this;
             self.loadCat();
             if (self.$route.params.id) {
-                var url = '/api/cuslink/get/' + self.$route.params.id;
+                let url = '/api/cuslink/get/' + self.$route.params.id;
                 httper.get(url).then(function (response) {
                     self.Id = response.data.id;
                     self.Title = response.data.title;
@@ -89,13 +89,13 @@
         },
         methods: {
             loadCat: function () {
-                var self = this;
+                let self = this;
                 httper.get('/api/link/cat/list').then(function (response) {
                     self.options = response.data;
                 });
             },
             post: function () {
-                var self = this;
+                let self = this;
                 if (!!$.trim(self.Title) && !!$.trim(self.Url) && !!$.trim(self.LinkType)) {
                     httper.post('/api/cuslink/save', {
                         id: self.Id,

@@ -111,7 +111,7 @@
             Pager
         },
         created: function () {
-            var self = this;
+            let self = this;
             self.current = parseInt(self.$route.params.pageno);
             self.display = parseInt(self.$route.params.size);
             self.load();
@@ -119,13 +119,13 @@
         },
         filters: {
             formatDate(time) {
-                var date = new Date(time);
+                let date = new Date(time);
                 return formatDate(date, "yyyy-MM-dd hh:mm:ss");
             }
         },
         methods: {
             page_change: function (currentPage) {
-                var self = this;
+                let self = this;
                 if(self.current != currentPage) {
                     self.current = currentPage;
                     router.push({ name: 'CusLinkList', params: { size: self.display, pageno: self.current } });
@@ -134,7 +134,7 @@
                 self.load();
             },
             load: function () {
-                var self = this;
+                let self = this;
                 httper.post('/api/cuslink/list/' + self.display + '/' + self.current, {
                     cat_id: self.LinkType,
                     title: self.Title,
@@ -145,7 +145,7 @@
                 });
             },
             loadCat: function () {
-                var self = this;
+                let self = this;
                 httper.get('/api/link/cat/list').then(function (response) {
                     self.options = response.data;
                 });
@@ -154,7 +154,7 @@
                 router.push({ name: name, params: params });
             },
             delcuslink: function (id) {
-                var self = this;
+                let self = this;
                 if (confirm("确认要删除？")) {
                     httper.get('/api/cuslink/delete/' + id).then(function (response) {
                         if (response.data > 0) {
@@ -164,7 +164,7 @@
                 }
             },
             search: function () {
-                var self = this;
+                let self = this;
                 self.$refs.pager.setSearch(1);
             }
         }

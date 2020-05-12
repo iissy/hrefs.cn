@@ -122,7 +122,7 @@
         methods: {
             page_change: function (currentPage) {
                 let self = this;
-                if(self.current != currentPage) {
+                if(self.current !== currentPage) {
                     self.current = currentPage;
                     router.push({ name: 'LinkList', params: { size: self.display, pageno: self.current } });
                 }
@@ -130,7 +130,7 @@
                 self.load();
             },
             load: function () {
-                var self = this;
+                let self = this;
                 httper.post('/api/link/list/' + self.display + '/' + self.current, {
                     cat_id: self.LinkType,
                     title: self.Title,
@@ -141,7 +141,7 @@
                 });
             },
             loadCat: function () {
-                var self = this;
+                let self = this;
                 httper.get('/api/link/cat/list').then(function (response) {
                     self.options = response.data;
                 });
@@ -150,7 +150,7 @@
                 router.push({ name: name, params: params });
             },
             dellink: function (id) {
-                var self = this;
+                let self = this;
                 if (confirm("确认要删除？")) {
                     httper.get('/api/link/delete/' + id).then(function (response) {
                         if (response.data > 0) {
@@ -160,7 +160,7 @@
                 }
             },
             search: function () {
-                var self = this;
+                let self = this;
                 self.$refs.pager.setSearch(1);
             }
         }

@@ -105,7 +105,7 @@
         methods: {
             page_change: function (currentPage) {
                 let self = this;
-                if(self.current != currentPage) {
+                if(self.current !== currentPage) {
                     self.current = currentPage;
                     router.push({ name: 'ArticleList', params: { size: self.display, pageno: self.current } });
                 }
@@ -126,7 +126,7 @@
                 router.push({ name: name, params: params });
             },
             delarticle: function (id) {
-                var self = this;
+                let self = this;
                 if (confirm("确认要删除？")) {
                     httper.get('/api/article/delete/' + id).then(function (response) {
                         if (response.data > 0) {
