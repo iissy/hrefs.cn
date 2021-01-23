@@ -15,17 +15,18 @@ Vue.use(Router);
 
 const routes = [
     {
-        path: '/main',
+        path: '/main/overview',
         meta: { title: "首页" },
         name: 'Main',
         component: Main
     }, {
-        path: '/',
+        path: '/main/login',
         meta: { title: "登陆" },
         component: Login
     }, {
         path: '/main/link/add',
         meta: { title: "添加导航" },
+        name: 'LinkAdd',
         component: LinkAdd
     }, {
         path: '/main/link/edit/:id',
@@ -33,13 +34,14 @@ const routes = [
         name: 'LinkEdit',
         component: LinkAdd
     }, {
-        path: '/main/link/:size/:pageno',
+        path: '/main/link/:size/:page',
         meta: { title: "导航管理" },
         name: 'LinkList',
         component: LinkList
     }, {
         path: '/main/article/add',
         meta: { title: "添加文章" },
+        name: 'ArticleAdd',
         component: ArticleAdd
     }, {
         path: '/main/article/edit/:id',
@@ -47,12 +49,12 @@ const routes = [
         name: 'ArticleEdit',
         component: ArticleAdd
     }, {
-        path: '/main/article/:size/:pageno',
+        path: '/main/article/:size/:page',
         meta: { title: "文章管理" },
         name: 'ArticleList',
         component: ArticleList
     },{
-        path: '/main/account/:size/:pageno',
+        path: '/main/account/:size/:page',
         meta: { title: "用户列表" },
         name: 'AccountList',
         component: AccountList
@@ -67,7 +69,7 @@ const routes = [
         name: 'CusLinkEdit',
         component: CusLinkAdd
     }, {
-        path: '/main/cuslink/:size/:pageno',
+        path: '/main/cuslink/:size/:page',
         meta: { title: "网摘管理" },
         name: 'CusLinkList',
         component: CusLinkList

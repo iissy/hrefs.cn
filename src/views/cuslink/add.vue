@@ -104,7 +104,7 @@
                         url: self.Url
                     }).then(function (response) {
                         if (response.data > 0) {
-                            router.push({ name: 'CusLinkList', params: { size: 14, pageno: 1 } });
+                            router.push({ name: 'CusLinkList', params: { size: 14, page: 1 } });
                         }
                     });
                 }

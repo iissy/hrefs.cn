@@ -92,7 +92,7 @@
         },
         created: function () {
             let self = this;
-            self.current = parseInt(self.$route.params.pageno);
+            self.current = parseInt(self.$route.params.page);
             self.display = parseInt(self.$route.params.size);
             self.load();
         },
@@ -107,7 +107,7 @@
                 let self = this;
                 if(self.current !== currentPage) {
                     self.current = currentPage;
-                    router.push({ name: 'ArticleList', params: { size: self.display, pageno: self.current } });
+                    router.push({ name: 'ArticleList', params: { size: self.display, page: self.current } });
                 }
 
                 self.load();
