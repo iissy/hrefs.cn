@@ -21,7 +21,7 @@
     "@ckeditor/ckeditor5-dev-webpack-plugin": "^8.0.9",
     "@ckeditor/ckeditor5-editor-classic": "^18.0.0",
     "@ckeditor/ckeditor5-essentials": "^18.0.0",
-    "@ckeditor/ckeditor5-font": "^18.0.0",
+    "@ckeditor/ckeditor5-font": "^27.0.0",
     "@ckeditor/ckeditor5-heading": "^18.0.0",
     "@ckeditor/ckeditor5-horizontal-line": "^18.0.0",
     "@ckeditor/ckeditor5-image": "^18.0.0",
